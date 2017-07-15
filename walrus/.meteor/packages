@@ -23,3 +23,4 @@ accounts-base
 session
 twbs:bootstrap
 fourseven:scss
+react-meteor-data
