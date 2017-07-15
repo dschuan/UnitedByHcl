@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-export default class SideBarSubtopic extends Component {
-    render() {
-        return (
-            <blockquote className="blockquote subtopic">
-                <a href="#" className="subtopic-link">{this.props.title}</a>
-            </blockquote>
-        )
-    }
+const SideBarSubtopic = (props) => {
+    const topicUrl = "/topics/" + props.id;
+    return (
+        <blockquote className="blockquote subtopic">
+            <Link to={topicUrl}>{props.title}</Link>
+        </blockquote>
+    )
 }
+
+export default SideBarSubtopic;
