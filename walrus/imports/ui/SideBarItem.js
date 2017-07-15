@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
 
 import SideBarSubtopic from './SideBarSubtopic';
 
+
 export default class SideBarItem extends Component{
+
     renderSideBarSubtopic() {
-        const { subtopics } = this.props.topic;
-        if (subtopics !== undefined) {
-            return subtopics.map((title) => {
-                return <SideBarSubtopic title={title} key={title}/>
-            });
-        }
+      const subtopics  = this.props.topics;
+      console.log(subtopics);
+      if (subtopics !== undefined ) {
+        return subtopics.map((title) => {
+          return <SideBarSubtopic title={title} key={title}/>
+        })
+      }
     }
+
     render() {
         return (
             <li>
-                <a href="#">{this.props.topic.title}</a>
+                <a href="#">{this.props.name}</a>
                 {this.renderSideBarSubtopic()}
             </li>
         );

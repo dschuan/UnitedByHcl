@@ -13,6 +13,9 @@ export default class Signup extends React.Component {
 
     let email = this.refs.email.value.trim();
     let password = this.refs.password.value.trim();
+    let username = this.refs.username.value.trim();
+
+
 
     if (password.length < 9) {
       return this.setState({error: 'Password must be more than 8 characters long'});
@@ -25,6 +28,15 @@ export default class Signup extends React.Component {
         this.setState({error: ''});
       }
     });
+
+    Meteor.call('userExists', username, (err, res) => {
+      if (err) {
+        this.setState({error: err});
+      } else {
+        this.setState({error: ''});
+      }
+    });
+    
   }
   render() {
     return (
@@ -37,6 +49,7 @@ export default class Signup extends React.Component {
           <form onSubmit={this.onSubmit.bind(this)} noValidate className="boxed-view__form">
             <input type="email" ref="email" name="email" placeholder="Email"/>
             <input type="password" ref="password" name="password" placeholder="Password"/>
+            <input type="username" ref="username" name="username" placeholder="Username"/>
             <button className="button">Create Account</button>
           </form>
 
@@ -45,4 +58,5 @@ export default class Signup extends React.Component {
       </div>
     );
   }
+
 }
