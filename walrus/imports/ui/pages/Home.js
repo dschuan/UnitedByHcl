@@ -3,25 +3,25 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Grid } from 'react-bootstrap';
 import { createContainer } from 'react-meteor-data';
 import { Meteor } from 'meteor/meteor';
+import AppHeaderBar from '../AppheaderBar';
+import AppSideBar from '../AppSideBar';
 import Public from './Public';
 import Authenticated from './Authenticated';
+import TopicPage from './TopicPage';
 import Signup from '../Signup';
 import NotFound from '../NotFound';
+import Dashboard from '../Dashboard';
 
 const Home = homeProps => (
   <Router>
     <div className="App">
       <AppHeaderBar {...homeProps} />
+      <AppSideBar {...homeProps} />
       <Grid>
         <Switch>
-          <Route exact name="index" path="/" component={Index} />
-          <Authenticated exact path="/documents" component={Documents} {...appProps} />
-          <Authenticated exact path="/documents/new" component={NewDocument} {...appProps} />
-          <Authenticated exact path="/documents/:_id" component={ViewDocument} {...appProps} />
-          <Authenticated exact path="/documents/:_id/edit" component={EditDocument} {...appProps} />
-          <Public path="/signup" component={Signup} {...appProps} />
-          <Route name="recover-password" path="/recover-password" component={RecoverPassword} />
-          <Route name="reset-password" path="/reset-password/:token" component={ResetPassword} />
+          <Route exact name="index" path="/" component={Dashboard} />
+          <Authenticated exact path="/topics/:id" component={TopicPage} {...homeProps} />
+          <Public path="/signup" component={Signup} {...homeProps} />
           <Route component={NotFound} />
         </Switch>
       </Grid>
