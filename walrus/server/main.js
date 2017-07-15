@@ -1,5 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
+import 'whatwg-fetch';
+
 
 import '../imports/api/users';
 import { Links } from '../imports/api/links';
