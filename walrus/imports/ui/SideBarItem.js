@@ -7,10 +7,9 @@ export default class SideBarItem extends Component{
 
     renderSideBarSubtopic() {
       const subtopics  = this.props.topics;
-      console.log(subtopics);
       if (subtopics !== undefined ) {
         return subtopics.map((title) => {
-          return <SideBarSubtopic title={title} key={title}/>
+          return <SideBarSubtopic title={title.name} id={title._id} key={title._id}/>
         })
       }
     }

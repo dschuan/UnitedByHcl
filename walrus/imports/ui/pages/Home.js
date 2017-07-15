@@ -1,14 +1,14 @@
 import React, { PropTypes } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Grid } from 'react-bootstrap';
-import { createContainer } from 'react-meteor-data';
+import { createContainer } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import App from '../App';
 import AppHeaderBar from '../AppHeaderBar';
 import AppSideBar from '../AppSideBar';
 import Public from './Public';
 import Authenticated from './Authenticated';
-import TopicPage from './TopicPage';
+import TopicPage from '../containers/TopicPageContainer';
 import Signup from '../Signup';
 import NotFound from '../NotFound';
 import Dashboard from '../Dashboard';
@@ -21,7 +21,7 @@ const Home = homeProps => (
       <Grid>
         <Switch>
           <Route exact name="home" path="/" component={Dashboard} />
-          <Authenticated exact path="/topics/:id" component={TopicPage} {...homeProps} />
+          <Authenticated exact path="/topics/:_id" component={TopicPage} {...homeProps} />
           <Public path="/signup" component={Signup} {...homeProps} />
           <Route component={NotFound} />
         </Switch>

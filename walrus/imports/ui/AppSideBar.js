@@ -15,22 +15,17 @@ export default class AppSideBar extends Component {
 
   componentDidMount() {
 
-    console.log(this.state.categories)
-
-    this.linksTracker = Tracker.autorun(() => {
+    this.barTracker = Tracker.autorun(() => {
         Meteor.subscribe('categories');
         const cat = Categories.find({}).fetch();
-        console.log(cat);
         this.setState({
           categories: cat
         });
       });
-      console.log(this.state.categories);
   }
 
   componentWillUnmount() {
-    console.log('componentWillUnmount LinksList');
-    this.linksTracker.stop();
+    this.barTracker.stop();
   }
 
   renderSideBarItem() {
