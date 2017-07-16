@@ -53,5 +53,9 @@ Meteor.methods({
         content
       }
     })
+  },
+
+  'posts.delete'(_id) {
+    Posts.remove(_id)
   }
 })

@@ -44,5 +44,8 @@ Meteor.methods({
         content
       };
     })
+  },
+  'comments.delete'(_id {
+    Comments.remove(_id);
   }
 })

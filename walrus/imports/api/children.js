@@ -13,11 +13,13 @@ if (Meteor.isServer) {
 Meteor.methods({
   'children.insert'(content, username, postId) {
     let id = "child-" + shortid.generate();
+    let date = new Date();
     Children.insert({
       _id: id,
       content,
       username,
       rating: 0,
+      lastEdit: date,
       postId});
   },
   'children.rate'(_id, rate) {
@@ -41,11 +43,15 @@ Meteor.methods({
         type: String
       }
     }).validate({ content });
-
+    let editDate = new Date();
     Children.update({ _id }, {
       $set: {
-        content
+        content,
+        lastEdit: date
       }
     })
+  },
+  'children.delete'(_id) {
+    Children.remove(_id)
   }
 });
