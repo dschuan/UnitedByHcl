@@ -6,6 +6,8 @@ import 'whatwg-fetch';
 import '../imports/api/users';
 import { Links } from '../imports/api/links';
 import { Categories } from '../imports/api/categories';
+import { Posts } from '../imports/api/posts';
+import { Children } from '../imports/api/children';
 import '../imports/startup/simple-schema-configuration.js';
 
 Meteor.startup(() => {

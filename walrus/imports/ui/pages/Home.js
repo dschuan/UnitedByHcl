@@ -12,6 +12,7 @@ import TopicPage from '../containers/TopicPageContainer';
 import Signup from '../Signup';
 import NotFound from '../NotFound';
 import Dashboard from '../Dashboard';
+import PostPage from './PostPage';
 
 const Home = homeProps => (
   <Router>
