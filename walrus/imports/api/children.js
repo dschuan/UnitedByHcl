@@ -4,6 +4,11 @@ import shortid from 'shortid';
 import SimpleSchema from 'simpl-schema';
 
 export const Children = new Mongo.Collection('children');
+if (Meteor.isServer) {
+  Meteor.publish('children', function () {
+    return Children.find({});
+  });
+}
 
 Meteor.methods({
   'children.insert'(content, username, postId) {
@@ -13,8 +18,8 @@ Meteor.methods({
       content,
       username,
       rating: 0,
-      postId})
-  }
+      postId});
+  },
   'children.rate'(_id, rate) {
     new SimpleSchema({
       rate: {
@@ -43,4 +48,4 @@ Meteor.methods({
       }
     })
   }
-})
+});

@@ -4,7 +4,8 @@ export default class AppSearchBar extends Component {
     render() {
         return (
             <form className="navbar-form navbar-left" role="search">
-                <div className="form-group">
+                <div className="form-group app-search">
+                    <span className="space-buffer"></span>
                     <button type="submit" className="btn btn-default app-header-icon">
                         <span className="glyphicon glyphicon-search white"></span>
                     </button>
