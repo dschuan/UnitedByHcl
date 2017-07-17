@@ -8,7 +8,7 @@ import AppHeaderBar from '../AppHeaderBar';
 import AppSideBar from '../AppSideBar';
 import Public from './Public';
 import Authenticated from './Authenticated';
-import TopicPage from '../containers/TopicPageContainer';
+import TopicsMain from './TopicsMain';
 import Signup from '../Signup';
 import NotFound from '../NotFound';
 import Dashboard from '../Dashboard';
@@ -22,7 +22,7 @@ const Home = homeProps => (
       <Grid>
         <Switch>
           <Route exact name="home" path="/" component={Dashboard} />
-          <Authenticated exact path="/topics/:_id" component={TopicPage} {...homeProps} />
+          <Authenticated path="/topics" component={TopicsMain} {...homeProps} />
           <Public path="/signup" component={Signup} {...homeProps} />
           <Route component={NotFound} />
         </Switch>
@@ -31,7 +31,7 @@ const Home = homeProps => (
   </Router>
 );
 
-App.propTypes = {
+Home.propTypes = {
   loggingIn: PropTypes.bool,
   authenticated: PropTypes.bool,
 };
