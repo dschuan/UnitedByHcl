@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
 
+import TopicHeader from '../topics/TopicHeader';
+import TopicList from '../topics/TopicList';
+
 export default class TopicPage extends Component{
   constructor(props) {
     super(props);
@@ -14,7 +17,9 @@ export default class TopicPage extends Component{
     const topicName = this.props.topic.replace(topicid[0] + '_', '');
 
     return (
-      <div className = "page_content"><h1>{topicName}</h1></div>
-    )
+        <div className="col-sm-12 col-sm-offset-1 post-container">
+              {topicName}
+        </div>
+      )
   }
 }

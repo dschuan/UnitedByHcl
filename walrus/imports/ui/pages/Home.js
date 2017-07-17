@@ -21,7 +21,7 @@ const Home = homeProps => (
       <AppSideBar {...homeProps} />
       <Grid>
         <Switch>
-          <Route exact name="home" path="/" component={Dashboard} />
+          <Route exact name="home" path="/" component={PostPage} />
           <Authenticated exact path="/topics/:_id" component={TopicPage} {...homeProps} />
           <Public path="/signup" component={Signup} {...homeProps} />
           <Route component={NotFound} />
