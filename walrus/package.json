@@ -5,21 +5,22 @@
     "start": "meteor run"
   },
   "dependencies": {
-    "babel-runtime": "6.18.0",
+    "babel-runtime": "^6.18.0",
     "clipboard": "^1.5.16",
-    "meteor-node-stubs": "~0.2.0",
+    "meteor-node-stubs": "^0.2.11",
     "moment": "^2.17.1",
-    "react": "^15.4.1",
+    "react": "^15.6.1",
     "react-addons-pure-render-mixin": "^15.6.0",
     "react-bootstrap": "^0.31.1",
-    "react-dom": "^15.4.1",
+    "react-dom": "^15.6.1",
     "react-flip-move": "^2.7.4",
     "react-meteor-data": "^0.2.10",
     "react-modal": "^1.6.5",
     "react-router": "^4.1.1",
-    "react-router-dom": "^4.1.1",
-    "shortid": "^2.2.6",
-    "simpl-schema": "0.0.3"
+    "react-router-dom": "^4.1.2",
+    "shortid": "^2.2.8",
+    "simpl-schema": "0.0.3",
+    "whatwg-fetch": "^2.0.3"
   },
   "engines": {
     "node": "4.6.2"
