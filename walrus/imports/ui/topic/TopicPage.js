@@ -1,20 +1,35 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
+import TopicPageItem from './TopicPageItem';
+import { Route } from 'react-router-dom';
+import PostPage from '../pages/PostPage';
 
 export default class TopicPage extends Component{
-  constructor(props) {
-    super(props);
-    this.state = {
-      topic: []
+
+  renderPostList() {
+    if (this.props.postExists){
+      const posts = this.props.posts;
+      console.log(posts);
+      return posts.map((temp) => {
+        let temp2 = temp.content.replace(/\s+/g, '-').toLowerCase();
+        let temp3 = temp2.substring(0,20);
+          return <TopicPageItem content={temp.content} author={temp.user} topic={this.props.topic} key={temp._id} name = {temp3}/>
+        })
     }
+   else {
+     return( <div>Loading</div>)
+   }
   }
   render(){
-    const topicid = this.props.topic.split("_")
-    const topicName = this.props.topic.replace(topicid[0] + '_', '');
+      const url = "/topics/" + this.props.topic + "/:postId";
+      return (
 
-    return (
-      <div className = "page_content"><h1>{topicName}</h1></div>
-    )
+        <div>
+        {this.props.topic}
+        <Route path={url} component={PostPage}/>
+        {this.renderPostList()}
+        </div>
+      )
   }
 }

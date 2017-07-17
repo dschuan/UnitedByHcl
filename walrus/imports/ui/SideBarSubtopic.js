@@ -5,7 +5,7 @@ const SideBarSubtopic = (props) => {
     const topicUrl = "/topics/" + props.id;
     return (
         <blockquote className="blockquote subtopic">
-            <Link to={topicUrl}>{props.title}</Link>
+            <div className = "capitalise-text"><Link to={topicUrl}>{props.title}</Link></div>
         </blockquote>
     )
 }

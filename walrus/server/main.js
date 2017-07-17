@@ -5,9 +5,9 @@ import 'whatwg-fetch';
 
 import '../imports/api/users';
 import { Links } from '../imports/api/links';
-import { Categories } from '../imports/api/categories';
+import {Categories} from '../imports/api/categories';
 import { Posts } from '../imports/api/posts';
-import { Children } from '../imports/api/children';
+import {Children} from '../imports/api/children';
 import '../imports/startup/simple-schema-configuration.js';
 
 Meteor.startup(() => {
@@ -50,8 +50,48 @@ Meteor.startup(() => {
     ];
 
     nameList.map((category) => {
-      Meteor.call('categories.insert', category.name, category.topic);
+      let catname = category.name;
+      topics = category.topic.map((topic) => {
+         return (catname + '_' + topic).replace(/\s+/g, '-').toLowerCase();
+      });
+      console.log(topics);
+      Meteor.call('categories.insert', category.name, topics);
+    });
+    console.log('Inserted category data');
+  }
+
+  if (Posts.find({}).count() === 0) {
+
+    const postList = [
+      {
+        name: "Admin",
+        content: "Lorem ipsum dolor sit amet",
+        topic: "coding_java"
+      },
+      {
+        name: "Admin",
+        content: "Lorem ipsum dolor sit amet2",
+        topic: "coding_java"
+      },
+      {
+        name: "Admin",
+        content: "Lorem ipsum dolor sit amet3",
+        topic: "coding_java"
+      },
+      {
+        name: "Tinghao",
+        content: "I love bees they are so cool",
+        topic: "coding_java"
+      },
+      {
+        name: "DeSheng",
+        content: "Java is awesome and easy everyone should be an expert in it",
+        topic: "coding_java"
+      }
+    ];
+    postList.map((post) => {
+      Meteor.call('posts.insert', post.name, post.content, post.topic);
     })
-    console.log('Inserted data');
+    console.log('Inserted dummy post data');
   }
 });
