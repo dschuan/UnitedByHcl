@@ -1,8 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
-import 'whatwg-fetch';
 
-
+import { setupStackOverflowApi } from '../imports/server/StackOverflowApi';
 import '../imports/api/users';
 import { Links } from '../imports/api/links';
 import { Categories } from '../imports/api/categories';
@@ -12,6 +11,7 @@ import '../imports/startup/simple-schema-configuration.js';
 
 Meteor.startup(() => {
   WebApp.connectHandlers.use((req, res, next) => {
+    setupStackOverflowApi();
     const _id = req.url.slice(1);
     const link = Links.findOne({ _id });
 
