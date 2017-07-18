@@ -11,11 +11,22 @@ if (Meteor.isServer) {
 }
 Meteor.methods({
   'categories.insert'(name, topics) {
-    let id = "cat-" + shortid.generate();
+    const id = "cat-" + shortid.generate();
+    let topicObjs = topics.map((topic) => {
+      let topicid = id + "_" + topic.replace(/\s+/g, '-');
+      return ({
+        name: topic,
+        _id: topicid
+      })
+    });
+
     Categories.insert({
       _id: id,
-      topics,
+      topics: topicObjs,
       name
     })
+  },
+  'categories.findTopic'(topicId) {
+    return Categories.find({}).fetch();
   }
 })

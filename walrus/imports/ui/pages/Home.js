@@ -1,16 +1,18 @@
 import React, { PropTypes } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Grid } from 'react-bootstrap';
-import { createContainer } from 'react-meteor-data';
+import { createContainer } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
-import AppHeaderBar from '../AppheaderBar';
+import App from '../App';
+import AppHeaderBar from '../AppHeaderBar';
 import AppSideBar from '../AppSideBar';
 import Public from './Public';
 import Authenticated from './Authenticated';
-import TopicPage from './TopicPage';
+import TopicsMain from './TopicsMain';
 import Signup from '../Signup';
 import NotFound from '../NotFound';
 import Dashboard from '../Dashboard';
+import PostPage from './PostPage';
 
 const Home = homeProps => (
   <Router>
@@ -20,7 +22,7 @@ const Home = homeProps => (
       <Grid>
         <Switch>
           <Route exact name="home" path="/" component={Dashboard} />
-          <Authenticated exact path="/topics/:id" component={TopicPage} {...homeProps} />
+          <Authenticated path="/topics" component={TopicsMain} {...homeProps} />
           <Public path="/signup" component={Signup} {...homeProps} />
           <Route component={NotFound} />
         </Switch>
@@ -29,7 +31,7 @@ const Home = homeProps => (
   </Router>
 );
 
-App.propTypes = {
+Home.propTypes = {
   loggingIn: PropTypes.bool,
   authenticated: PropTypes.bool,
 };

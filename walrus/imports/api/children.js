@@ -4,17 +4,24 @@ import shortid from 'shortid';
 import SimpleSchema from 'simpl-schema';
 
 export const Children = new Mongo.Collection('children');
+if (Meteor.isServer) {
+  Meteor.publish('children', function () {
+    return Children.find({});
+  });
+}
 
 Meteor.methods({
   'children.insert'(content, username, postId) {
     let id = "child-" + shortid.generate();
+    let lastEdit = Math.round(( new Date().getTime) / 1000);
     Children.insert({
       _id: id,
       content,
       username,
       rating: 0,
-      postId})
-  }
+      lastEdit,
+      postId});
+  },
   'children.rate'(_id, rate) {
     new SimpleSchema({
       rate: {
@@ -36,11 +43,15 @@ Meteor.methods({
         type: String
       }
     }).validate({ content });
-
+    let lastEdit = Math.round(( new Date().getTime) / 1000);
     Children.update({ _id }, {
       $set: {
-        content
+        content,
+        lastEdit
       }
     })
+  },
+  'children.delete'(_id) {
+    Children.remove(_id)
   }
-})
+});
