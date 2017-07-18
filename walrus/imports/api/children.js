@@ -13,13 +13,13 @@ if (Meteor.isServer) {
 Meteor.methods({
   'children.insert'(content, username, postId) {
     let id = "child-" + shortid.generate();
-    let date = new Date();
+    let lastEdit = Math.round(( new Date().getTime) / 1000);
     Children.insert({
       _id: id,
       content,
       username,
       rating: 0,
-      lastEdit: date,
+      lastEdit,
       postId});
   },
   'children.rate'(_id, rate) {
@@ -43,11 +43,11 @@ Meteor.methods({
         type: String
       }
     }).validate({ content });
-    let editDate = new Date();
+    let lastEdit = Math.round(( new Date().getTime) / 1000);
     Children.update({ _id }, {
       $set: {
         content,
-        lastEdit: date
+        lastEdit
       }
     })
   },

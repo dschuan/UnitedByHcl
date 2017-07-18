@@ -3,16 +3,17 @@ import { Mongo } from 'meteor/mongo';
 import shortid from 'shortid';
 import SimpleSchema from 'simpl-schema';
 
-
 export const Comments = new Mongo.Collection('comments');
 
 Meteor.methods({
   'comments.insert'(content, childId, username) {
       let id = "com-" + shortid.generate();
+      let lastEdited = Math.round(( new Date().getTime) / 1000);
     Comments.insert({
       _id: id,
       content,
       rating: 0,
+      lastEdited,
       user: username,
       childId
     })
@@ -33,6 +34,7 @@ Meteor.methods({
     })
   },
   'comments.edit'(_id, content) {
+    let lastEdited = Math.round(( new Date().getTime) / 1000);
     new SimpleSchema({
       content: {
         type: String
@@ -41,11 +43,12 @@ Meteor.methods({
 
     Comments.update({ _id }, {
       $set: {
-        content
+        content,
+        lastEdited
       };
     })
   },
   'comments.delete'(_id {
     Comments.remove(_id);
   }
-})
+});

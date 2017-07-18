@@ -11,16 +11,17 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-  'posts.insert'(username, content, category) {
+  'posts.insert'(username, content, topic) {
+    //topic refers to topicId
     let id = "post-" + shortid.generate();
-    let date = new Date();
+    let date = Math.round(( new Date().getTime()) / 1000);
     Posts.insert({
       _id: id,
       user: username,
       lastEdited: date,
       rating: 0,
       content,
-      category
+      topic
     })
   },
 
@@ -46,7 +47,7 @@ Meteor.methods({
         type: String
       }
     }).validate({ content });
-    let lastEdited = new Date();
+    let lastEdited = Math.round(( new Date().getTime()) / 1000);
     Posts.update({ _id }, {
       $set: {
         lastEdited,
@@ -57,5 +58,9 @@ Meteor.methods({
 
   'posts.delete'(_id) {
     Posts.remove(_id)
+  },
+
+  'posts.listByDate'() {
+    return Posts.find({}).fetch();
   }
-})
+});
