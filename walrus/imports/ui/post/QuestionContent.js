@@ -16,5 +16,5 @@ export default class QuestionContent extends Component {
 }
 
 QuestionContent.propTypes = {
-    postId : React.PropTypes.string.isRequired
+    post : React.PropTypes.object.isRequired
 }

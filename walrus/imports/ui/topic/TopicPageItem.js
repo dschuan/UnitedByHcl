@@ -2,12 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const TopicPageItem = (props) => {
-  const url = "/topics/" + props.topic + "/" + props.name
+  const url = "/posts/" + props.postId;
+  console.log(props);
   return (
       <div>
-        <Link to={url}>{props.content}</Link>
+        <Link to={url}>{props.title}</Link>
         <p> By: {props.author} </p>
-        <p>{props.topic}</p>
       </div>
     )
 }

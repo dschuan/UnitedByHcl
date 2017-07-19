@@ -6,11 +6,11 @@ import { Posts } from '../../api/posts';
 
 
 export default createContainer(({match}) => {
-  console.log(match.params);
   const topic = match.params._id;
   const handler = Meteor.subscribe('posts');
   const loading = !handler.ready();
   const post = Posts.find({topic}, {sort: {lastEdited: -1}}).fetch();
+  console.log(post);
   const postExists = !loading && !!post;
 
   return { topic, loading,

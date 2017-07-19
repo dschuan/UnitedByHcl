@@ -12,7 +12,7 @@ import TopicsMain from './TopicsMain';
 import Signup from '../Signup';
 import NotFound from '../NotFound';
 import Dashboard from '../Dashboard';
-import PostPage from './PostPage';
+import PostPage from '../containers/PostPageContainer';
 
 const Home = homeProps => (
   <Router>
@@ -23,6 +23,7 @@ const Home = homeProps => (
         <Switch>
           <Route exact name="home" path="/" component={Dashboard} />
           <Authenticated path="/topics" component={TopicsMain} {...homeProps} />
+          <Authenticated exact path="/posts/:_pid" component={PostPage} {...homeProps }/>
           <Public path="/signup" component={Signup} {...homeProps} />
           <Route component={NotFound} />
         </Switch>
