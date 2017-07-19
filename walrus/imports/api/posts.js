@@ -11,7 +11,7 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-  'posts.insert'(username, content, topic) {
+  'posts.insert'(username, content, title, topic) {
     //topic refers to topicId
     let id = "post-" + shortid.generate();
     let date = Math.round(( new Date().getTime()) / 1000);
@@ -20,6 +20,7 @@ Meteor.methods({
       user: username,
       lastEdited: date,
       rating: 0,
+      title,
       content,
       topic
     })

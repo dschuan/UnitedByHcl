@@ -11,65 +11,53 @@ export default class QuestionPost extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            posts: []
+            post: {},
+            hasAnswer:false,
+            hasPost:false
         };
     }
 
-    componentDidMount() {
-        console.log('QuestionPost', this.props);
-        const _id = this.props.postId;
-        this.postTracker = Tracker.autorun(() => {
-            Meteor.subscribe('posts');
-            const posts = Posts.find({_id }).fetch();
-            this.setState({
-                posts
-            });
-            if (this.state.posts.length !== 0) {
-                if (this.state.posts[0].answer_count > 0) {
-                    this.props.answerToggle(true);
-                } else {
-                    this.props.answerToggle(false);
-                }
-            }
-        });
+    componentDidMount(){
+      this.postTracker = Tracker.autorun(()=> {
+        this.setState({
+          post: this.props.post,
+          hasAnswer: this.props.hasAnswer,
+          hasPost: this.props.hasPost
+        })
+      })
     }
 
-    componentWillUnmount() {
-        console.log('component will unmount, QuestionPost');
-        this.postTracker.stop();
+    componentWillUnmount(){
+      this.postTracker.stop();
     }
-
     renderQuestion() {
-        if (this.state.posts.length !== 0) {
-            return <PostText text={this.state.posts[0].content.title}/>
-        } else {
-            return null;
-        }
+      return <PostText text={this.state.post.title}/>
     }
 
     renderCategory() {
         // TODO: render category either based on _id or category name
-        console.log('QuestionPost', this.props);
-        if(this.state.posts.length !== 0) {
-            return this.state.posts[0].category.map((category) => {
-                return <CategoryLabel category={category} key={category}/>;
+        console.log('QuestionPost', this.state);
+        if(this.state.hasPost) {
+            return this.state.post.topics.map((topic) => {
+                return <CategoryLabel category={topic} key={topic}/>;
             })
         }
     }
 
     renderQuestionContent() {
-        if (this.state.posts.length !== 0) {
-            return <QuestionContent content={this.state.posts[0].content.detail} postId={this.props.postId}/>
-        }
+      if(this.state.hasPost) {
+        return <QuestionContent content={this.state.post.content} postId={this.state.post._id}/>
+      }
     }
 
     render() {
+      console.log(this.props);
         return (
             <div className="question-content">
                 {this.renderQuestion()}
                 {this.renderCategory()}
                 <span className="details-small">
-                     {this.state.posts.length !== 0 ? this.state.posts[0].answer_count : 0} answer(s) . 39 views
+                   answer(s) . 39 views
                 </span>
                 <hr />
                 {this.renderQuestionContent()}
@@ -77,8 +65,3 @@ export default class QuestionPost extends Component {
         );
     }
 }
-
-QuestionPost.propTypes = {
-    postId : React.PropTypes.string.isRequired,
-    answerToggle: React.PropTypes.func.isRequired
-};

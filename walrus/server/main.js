@@ -66,31 +66,36 @@ Meteor.startup(() => {
       {
         name: "Admin",
         content: "Lorem ipsum dolor sit amet",
+        title: "Topic_1",
         topic: "coding_java"
       },
       {
         name: "Admin",
         content: "Lorem ipsum dolor sit amet2",
+        title: "Topic_5",
         topic: "coding_java"
       },
       {
         name: "Admin",
         content: "Lorem ipsum dolor sit amet3",
+        title: "Topic_2",
         topic: "coding_java"
       },
       {
         name: "Tinghao",
         content: "I love bees they are so cool",
+        title: "Topic_3",
         topic: "coding_java"
       },
       {
         name: "DeSheng",
         content: "Java is awesome and easy everyone should be an expert in it",
+        title: "Topic_4",
         topic: "coding_java"
       }
     ];
     postList.map((post) => {
-      Meteor.call('posts.insert', post.name, post.content, post.topic);
+      Meteor.call('posts.insert', post.name, post.content, post.title, post.topic);
     })
     console.log('Inserted dummy post data');
   }
