@@ -7,11 +7,14 @@ import bodyParser from 'body-parser';
 
 export function setupStackOverflowApi() {
     const app = express();
+    app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false}));
 
-    app.post('/stackoverflowapi', (req, res,next) => {
+    app.post('/stackoverflowapi', (req, res, next) => {
         // get params from req.body
-        let title = req.body.title;
+        console.log(req.body.title);
+        let title = req.body.title
+        //let title = "machine learning in python"
         let formatTitle = title.replace(" ", "%20");
         let url = "http://api.stackexchange.com/2.2/search?order=desc&sort=relevance&intitle="+formatTitle+"&site=stackoverflow";
         let options = {
@@ -35,7 +38,7 @@ export function setupStackOverflowApi() {
                     let json = { content: ""};
                     $(id).filter(function() {
                         var data = $(this);
-                        console.log(data.children().children().children().first().children().first().next().children().children().text());
+                        //console.log(data.children().children().children().first().children().first().next().children().children().text());
                         content = data.children().children().children().first().children().first().next().children().children().text();
                         json.content = content;
                     });
