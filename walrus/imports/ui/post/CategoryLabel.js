@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import { Button } from 'react-bootstrap';
 
 export default class CategoryLabel extends Component {
     render() {
+        const label = this.props.category.split("-")[2];
         return (
-                <span><button type="button" className="btn btn-info btn-xs">{this.props.Category}</button></span>
+                <span><Button bsStyle="info" bsSize="xsmall">{label}</Button></span>
         );
     }
 }

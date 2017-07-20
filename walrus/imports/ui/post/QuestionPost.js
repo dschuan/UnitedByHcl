@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
+import { Grid, Row, Col, Button } from 'react-bootstrap'
 
 import { Posts } from '../../api/posts';
 import CategoryLabel from './CategoryLabel';
@@ -30,15 +31,12 @@ export default class QuestionPost extends Component {
     componentWillUnmount(){
       this.postTracker.stop();
     }
-    renderQuestion() {
-      return <PostText text={this.state.post.title}/>
-    }
 
     renderCategory() {
         // TODO: render category either based on _id or category name
-        console.log('QuestionPost', this.state);
+        //console.log('QuestionPost', this.state);
         if(this.state.hasPost) {
-            return this.state.post.topics.map((topic) => {
+            return this.state.post.category.map((topic) => {
                 return <CategoryLabel category={topic} key={topic}/>;
             })
         }
@@ -46,22 +44,35 @@ export default class QuestionPost extends Component {
 
     renderQuestionContent() {
       if(this.state.hasPost) {
-        return <QuestionContent content={this.state.post.content} postId={this.state.post._id}/>
+        return <QuestionContent postId={this.state.post._id} post={this.state.post} />
       }
     }
 
     render() {
-      console.log(this.props);
+     console.log('Question post' , this.props);
         return (
-            <div className="question-content">
-                {this.renderQuestion()}
-                {this.renderCategory()}
-                <span className="details-small">
-                   answer(s) . 39 views
-                </span>
-                <hr />
-                {this.renderQuestionContent()}
-            </div>
+            <Grid className="post-right">
+                <Row className="show-grid">
+                    <Col md={9}>
+                        <div className="question-content">
+                            {this.renderCategory()}
+                            <span className="details-small">
+                               answer(s) . 39 views
+                            </span>
+                        </div>
+                    </Col>
+                    <Col md={3} className="no-left-pad">
+                        <span className="details-small">
+                           posted on {this.state.post.lastEdited} by {' '}
+                           <Button bsStyle="link" className="inline-link">{this.state.post.user}</Button>
+                        </span>
+                    </Col>
+                </Row>
+                <Row>
+                    {this.renderQuestionContent()}
+                    <hr />
+                </Row>
+            </Grid>
         );
     }
 }

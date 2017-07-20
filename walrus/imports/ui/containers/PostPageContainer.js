@@ -8,7 +8,7 @@ import PostPage from '../pages/PostPage';
 
 export default createContainer(({match}) => {
   console.log(match);
-  const postId = match.params._pid;
+  const postId = "post-" + match.params._pid;
   const postHandler = Meteor.subscribe('posts');
   const childHandler = Meteor.subscribe('children');
   const loading = !postHandler.ready()
