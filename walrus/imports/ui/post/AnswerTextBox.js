@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
+import { Button, form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+
 
 export default class AnswerTextBox extends Component {
     constructor(props) {
@@ -26,18 +28,18 @@ export default class AnswerTextBox extends Component {
     }
 
     render() {
-        console.log('Answer text box',this.props.postId);
+        //console.log('Answer text box',this.props.postId);
         return (
             <div>
                 {this.state.showComplete ? <h5> Your answer has been submitted </h5> :
-                <form onSubmit={this.handleFormSubmit.bind(this)}>
-                    <div className="form-group">
-                      <label>Your Answer Here: </label>
-                      <textarea className="form-control" rows="5" id="answer" ref="answer"></textarea>
-                      <button type="submit" className="btn">Post</button>
-                      <button type="button" className="btn btn-danger" onClick={() => this.props.hideTextArea()}>Cancel</button>
-                  </div>
-              </form>
+                    <form onSubmit={this.handleFormSubmit.bind(this)}>
+                      <FormGroup controlId="formControlsTextarea">
+                        <ControlLabel>Your Answer Here: </ControlLabel>
+                        <FormControl componentClass="textarea" placeholder="Your Answer" rows="5" ref="answer"/>
+                      </FormGroup>
+                      <Button type="submit">Post</Button>
+                      <Button bsStyle="danger" onClick={() => this.props.hideTextArea()}> Cancel </Button>
+                  </form>
           }
           </div>
         );

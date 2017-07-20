@@ -5,13 +5,14 @@ import PostText from './PostText';
 export default class Answer extends Component {
     render() {
         const { answer } = this.props;
+        console.log('Answer', answer);
         return (
             <div>
                 <span>
                         Answered by: <button className="btn btn-link">{answer.username} (4.9/5)</button>
                 </span>
                 <span className="details-small">
-                    Updated on date . Post rated 4.9/5.0 .
+                    Updated on date . Post rated {answer.rating}/5.0 .
                 </span>
                 <span className="details-small">
                     User flair

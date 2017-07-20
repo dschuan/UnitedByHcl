@@ -7,9 +7,7 @@ export default class QuestionContent extends Component {
     render() {
         return (
             <div>
-                <PostText text={this.props.content} />
                 <AnswerPostArea postId={this.props.postId}/>
-                <hr />
             </div>
         );
     }
