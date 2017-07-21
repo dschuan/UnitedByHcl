@@ -1,7 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
+import express from 'express';
+import bodyParser from 'body-parser';
 
 import { setupStackOverflowApi } from '../imports/server/StackOverflowApi';
+import { setupQuoraApi } from '../imports/server/QuoraApi';
+import { setupRedditApi } from '../imports/server/RedditApi';
 import '../imports/api/users';
 import { Links } from '../imports/api/links';
 import {Categories} from '../imports/api/categories';
@@ -11,7 +15,14 @@ import '../imports/startup/simple-schema-configuration.js';
 
 Meteor.startup(() => {
   WebApp.connectHandlers.use((req, res, next) => {
-    setupStackOverflowApi();
+    const app = express();
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: false}));
+
+    setupStackOverflowApi(app);
+    setupQuoraApi(app);
+    setupRedditApi(app);
+
     const _id = req.url.slice(1);
     const link = Links.findOne({ _id });
 

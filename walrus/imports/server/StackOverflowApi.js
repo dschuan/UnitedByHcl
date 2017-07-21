@@ -1,20 +1,14 @@
 import { Meteor } from 'meteor/meteor';
-import express from 'express';
 import fs from 'fs';
-var request = require("request");
+import request from 'request';
 import cheerio from 'cheerio';
-import bodyParser from 'body-parser';
 
-export function setupStackOverflowApi() {
-    const app = express();
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: false}));
+export function setupStackOverflowApi(app) {
 
-    app.post('/stackoverflowapi', (req, res, next) => {
+    app.post('/api/stackoverflow', (req, res, next) => {
         // get params from req.body
         console.log(req.body.title);
         let title = req.body.title
-        //let title = "machine learning in python"
         let formatTitle = title.replace(" ", "%20");
         let url = "http://api.stackexchange.com/2.2/search?order=desc&sort=relevance&intitle="+formatTitle+"&site=stackoverflow";
         let options = {
