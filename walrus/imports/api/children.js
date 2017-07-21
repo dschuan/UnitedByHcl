@@ -13,7 +13,7 @@ if (Meteor.isServer) {
 Meteor.methods({
   'children.insert'(content, username, postId) {
     let id = "child-" + shortid.generate();
-    let lastEdit = Math.round(( new Date().getTime) / 1000);
+    let lastEdit = Math.round(( new Date().getTime()) / 1000);
     Children.insert({
       _id: id,
       content,
@@ -43,7 +43,7 @@ Meteor.methods({
         type: String
       }
     }).validate({ content });
-    let lastEdit = Math.round(( new Date().getTime) / 1000);
+    let lastEdit = Math.round(( new Date().getTime()) / 1000);
     Children.update({ _id }, {
       $set: {
         content,
