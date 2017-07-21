@@ -8,16 +8,16 @@ import PostPage from '../pages/PostPage';
 
 export default createContainer(({match}) => {
   console.log(match);
-  const postId = "post-" + match.params._pid;
+  const postId = match.params._pid;
   const postHandler = Meteor.subscribe('posts');
   const childHandler = Meteor.subscribe('children');
   const loading = !postHandler.ready()
   const post = Posts.find({_id: postId}).fetch();
-  const children = Children.findOne({postId})
+  const children = Children.find({postId});
   console.log(post);
   console.log(children);
   const postExists = !loading && !!post;
-  const childExists = !!children;
+  const childExists = !(children.count() === 0);
   return { loading,
     post,
     postExists,

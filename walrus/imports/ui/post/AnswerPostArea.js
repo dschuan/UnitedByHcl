@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Button } from 'react-bootstrap';
 import AnswerTextBox from './AnswerTextBox';
 
 export default class AnswerPostArea extends Component {
@@ -20,9 +20,9 @@ export default class AnswerPostArea extends Component {
                 {this.state.showTextBox ?
                     <AnswerTextBox hideTextArea={this.handleButtonClick.bind(this)} postId={this.props.postId}/>
                     :
-                    <button className="btn btn-sm" onClick={this.handleButtonClick.bind(this)}>
-                        Answer
-                    </button>}
+                    <Button bsStyle="primary" bsSize="large" onClick={this.handleButtonClick.bind(this)}>
+                        Answer this question
+                    </Button>}
             </div>
         );
     }

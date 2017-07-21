@@ -14,31 +14,30 @@ export default class AnswerTextBox extends Component {
     handleFormSubmit(e) {
         // TODO get userId
         e.preventDefault();
-        answer = this.input.value;
+        post = this.input.value;
         console.log('submitting post', this.input.value);
         // show error if err, show complete if complete
-        if(answer) {
-            Meteor.call('children.insert', answer, 'jiarui', this.props.postId);
-            this.refs.answer.value = '';
+        if(post) {
+            Meteor.call('posts.edit', this.props.postId, post);
             this.setState({
                 showComplete: true
             });
-            setTimeout(() => { this.props.hideTextArea()}, 3000);
+            setTimeout(() => { this.props.hideEditBox()}, 1000);
         }
     }
 
     render() {
-        //console.log('Answer text box',this.props.postId);
+        console.log('EditPost text box',this.props);
         return (
             <div>
-                {this.state.showComplete ? <h5> Your answer has been submitted </h5> :
+                {this.state.showComplete ? <h5> Post edited </h5> :
                     <form onSubmit={this.handleFormSubmit.bind(this)}>
                       <FormGroup controlId="formControlsTextarea">
-                        <ControlLabel>Your Answer Here: </ControlLabel>
-                        <FormControl componentClass="textarea" placeholder="Your Answer" rows="5"  inputRef={(ref) => {this.input = ref}}/>
+                        <ControlLabel>Edit your post: </ControlLabel>
+                        <FormControl componentClass="textarea" rows="5" defaultValue={this.props.initialCont} inputRef={(ref) => {this.input = ref}}/>
                       </FormGroup>
-                      <Button type="submit">Post</Button>
-                      <Button bsStyle="danger" onClick={() => this.props.hideTextArea()}> Cancel </Button>
+                      <Button type="submit">Edit Post</Button>
+                      <Button bsStyle="danger" onClick={() => this.props.hideEditBox()}> Cancel </Button>
                   </form>
           }
           </div>

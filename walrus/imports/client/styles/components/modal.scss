@@ -1,0 +1,14 @@
+.modal-container {
+  position: relative;
+}
+.modal-container .modal, .modal-container .modal-backdrop {
+  position: absolute;
+}
+body.modal-open .modal {
+    display: flex !important;
+    height: 100%;
+}
+
+body.modal-open .modal .modal-dialog {
+    margin: auto;
+}

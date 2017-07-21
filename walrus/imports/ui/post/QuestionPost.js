@@ -36,7 +36,7 @@ export default class QuestionPost extends Component {
         // TODO: render category either based on _id or category name
         //console.log('QuestionPost', this.state);
         if(this.state.hasPost) {
-            return this.state.post.category.map((topic) => {
+            return this.state.post.topic.map((topic) => {
                 return <CategoryLabel category={topic} key={topic}/>;
             })
         }
@@ -48,8 +48,30 @@ export default class QuestionPost extends Component {
       }
     }
 
+    renderTimePosted() {
+      const editTime = this.state.post.lastEdited;
+      const currentTime = Math.round((new Date().getTime()) / 1000);
+      const timeSinceEdit = currentTime - editTime;
+      if (timeSinceEdit < 60) {
+        return ( <span>{timeSinceEdit} seconds</span>)
+
+      } else if (timeSinceEdit >= 60 && timeSinceEdit < 3600) {
+        timeInMin = Math.floor(timeSinceEdit / 60);
+        return (<span>{timeInMin} minutes</span>)
+
+      } else if (timeSinceEdit >= 3600 && timeSinceEdit < 216000) {
+        timeInHr = Math.floor(timeSinceEdit / 3600);
+        return(<span>{timeInHr} hours </span>)
+
+      } else {
+        timeInDay = Math.floor(timeSinceEdit / 216000);
+        return(<span>{timeInDay} days</span>)
+      }
+    }
+
     render() {
      console.log('Question post' , this.props);
+     console.log('Question post state', this.state);
         return (
             <Grid className="post-right">
                 <Row className="show-grid">
@@ -57,13 +79,16 @@ export default class QuestionPost extends Component {
                         <div className="question-content">
                             {this.renderCategory()}
                             <span className="details-small">
-                               answer(s) . 39 views
+                               answer(s):
+                            </span>
+                            <span className="details-small">
+                              rating: {this.state.post.rating}
                             </span>
                         </div>
                     </Col>
                     <Col md={3} className="no-left-pad">
                         <span className="details-small">
-                           posted on {this.state.post.lastEdited} by {' '}
+                           posted {this.renderTimePosted()} ago by {' '}
                            <Button bsStyle="link" className="inline-link">{this.state.post.user}</Button>
                         </span>
                     </Col>

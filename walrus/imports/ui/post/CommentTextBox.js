@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { Button, form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 
 
-export default class AnswerTextBox extends Component {
+export default class CommentTextBox extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -14,16 +14,15 @@ export default class AnswerTextBox extends Component {
     handleFormSubmit(e) {
         // TODO get userId
         e.preventDefault();
-        answer = this.input.value;
-        console.log('submitting post', this.input.value);
+        comment = this.input.value;
+        console.log('submitting comment', this.input.value, this.props.childId);
         // show error if err, show complete if complete
-        if(answer) {
-            Meteor.call('children.insert', answer, 'jiarui', this.props.postId);
-            this.refs.answer.value = '';
+        if(comment) {
+            Meteor.call('comments.insert', comment, this.props.childId, 'jiarui');
+            this.input.value = '';
             this.setState({
                 showComplete: true
             });
-            setTimeout(() => { this.props.hideTextArea()}, 3000);
         }
     }
 
@@ -31,14 +30,14 @@ export default class AnswerTextBox extends Component {
         //console.log('Answer text box',this.props.postId);
         return (
             <div>
-                {this.state.showComplete ? <h5> Your answer has been submitted </h5> :
+                {this.state.showComplete ? <h5> Comment Submitted </h5> :
                     <form onSubmit={this.handleFormSubmit.bind(this)}>
                       <FormGroup controlId="formControlsTextarea">
-                        <ControlLabel>Your Answer Here: </ControlLabel>
+                        <ControlLabel>Type your comment...</ControlLabel>
                         <FormControl componentClass="textarea" placeholder="Your Answer" rows="5"  inputRef={(ref) => {this.input = ref}}/>
                       </FormGroup>
-                      <Button type="submit">Post</Button>
-                      <Button bsStyle="danger" onClick={() => this.props.hideTextArea()}> Cancel </Button>
+                      <Button type="submit">Comment</Button>
+                      <Button bsStyle="danger" onClick={() => this.props.showCommentInput()}> Cancel </Button>
                   </form>
           }
           </div>

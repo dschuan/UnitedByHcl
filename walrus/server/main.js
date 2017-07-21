@@ -11,6 +11,8 @@ import { Links } from '../imports/api/links';
 import {Categories} from '../imports/api/categories';
 import { Posts } from '../imports/api/posts';
 import {Children} from '../imports/api/children';
+import { Comments } from '../imports/api/comments';
+
 import '../imports/startup/simple-schema-configuration.js';
 
 Meteor.startup(() => {
@@ -78,31 +80,31 @@ Meteor.startup(() => {
         name: "Admin",
         content: "Lorem ipsum dolor sit amet",
         title: "Topic_1",
-        topic: "coding_java"
+        topic: ["coding_java"]
       },
       {
         name: "Admin",
         content: "Lorem ipsum dolor sit amet2",
         title: "Topic_5",
-        topic: "coding_java"
+        topic: ["coding_java"]
       },
       {
         name: "Admin",
         content: "Lorem ipsum dolor sit amet3",
         title: "Topic_2",
-        topic: "coding_java"
+        topic: ["coding_java"]
       },
       {
         name: "Tinghao",
         content: "I love bees they are so cool",
         title: "Topic_3",
-        topic: "coding_java"
+        topic: ["coding_java"]
       },
       {
         name: "DeSheng",
         content: "Java is awesome and easy everyone should be an expert in it",
         title: "Topic_4",
-        topic: "coding_java"
+        topic: ["coding_java"]
       }
     ];
     postList.map((post) => {

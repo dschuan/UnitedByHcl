@@ -2,6 +2,8 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import shortid from 'shortid';
 import SimpleSchema from 'simpl-schema';
+import { Children } from './children';
+import { Comments } from './comments';
 
 export const Posts = new Mongo.Collection('posts');
 if (Meteor.isServer) {
@@ -58,7 +60,21 @@ Meteor.methods({
   },
 
   'posts.delete'(_id) {
-    Posts.remove(_id)
+    //remove post
+    Posts.remove(_id);
+    //remove children
+    children=Children.find({postId: _id}).fetch();
+    children.map((child) => {
+      childId = child._id;
+      comments=Comments.find({childId}).fetch();
+      comments.map((comment) =>{
+        //remove comments
+        commentId = comment._id;
+        Comments.remove(commentId);
+      })
+      Children.remove(childId);
+    })
+
   },
 
   'posts.listByDate'() {
