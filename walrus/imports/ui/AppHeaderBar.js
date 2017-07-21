@@ -4,6 +4,7 @@ import AppSearchBar from './AppSearchBar';
 import AppNotification from './AppNotification';
 import AppSettings from './AppSettings';
 import UserProfileIcon from './UserProfileIcon';
+import { Link } from 'react-router-dom';
 
 export default class AppHeaderBar extends Component {
     render() {
@@ -11,7 +12,7 @@ export default class AppHeaderBar extends Component {
             <nav className = "navbar navbar-default app-header" role = "navigation">
 
                <div className  = "navbar-header col-sm-2">
-                  <a className  = "navbar-brand" href = "#">REPPO</a>
+                  <Link to='/' className='navbar-brand'>REPPO</Link>
                </div>
                <div className = "navbar-header col-sm-8 col-xs-12">
                    <AppSearchBar />

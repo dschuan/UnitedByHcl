@@ -70,7 +70,7 @@ export default class PostPage extends Component {
     }
     deletePost(){
       console.log('delete-post');
-      Meteor.call('posts.delete',this.props.posts._id)
+      Meteor.call('posts.delete',this.props.posts._id);
       this.setState({
         redirect: !this.state.redirect
       })
