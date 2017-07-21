@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
+import { createContainer } from 'meteor/react-meteor-data';
 import { Tracker } from 'meteor/tracker';
 import { Grid, Row, Col, Button, ButtonToolbar, ButtonGroup } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
@@ -7,8 +8,9 @@ import { Posts } from '../../api/posts';
 import CategoryLabel from './CategoryLabel';
 import PostText from './PostText';
 import QuestionContent from './QuestionContent';
+import { Votes } from '../../api/votes';
 
-export default class QuestionPost extends Component {
+class QuestionPost extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,15 +18,38 @@ export default class QuestionPost extends Component {
             hasAnswer:false,
             hasPost:false,
             isUpvoted: false,
-            isDownvoted: false
+            isDownvoted: false,
         };
     }
 
     upvote(){
       console.log("upvote");
+      console.log(this.props.vote);
+      const parentId = this.props.post._id;
+      //TO-DO: Replace with
+      //const user = Meteor.user().username;
+      const user = this.props.post.user;
+      if(this.props.vote === 0){
+        Meteor.call('votes.insert', parentId, user, true);
+      } else if(this.props.vote > 0){
+        Meteor.call('votes.update', parentId, user, true);
+      } else {
+        console.log('upvote failed');
+      }
+
     }
     downvote(){
       console.log("downvote");
+      const parentId = this.props.post._id;
+      //const user = Meteor.user().username;
+      const user = this.props.post.user;
+      if(this.props.vote === 0){
+        Meteor.call('votes.insert', parentId, user, false);
+      } else if(this.props.vote > 0){
+        Meteor.call('votes.update', parentId, user, false);
+      } else {
+        console.log('downvote failed');
+      }
     }
     componentDidMount(){
       this.postTracker = Tracker.autorun(()=> {
@@ -47,8 +72,8 @@ export default class QuestionPost extends Component {
             return this.state.post.topic.map((topic) => {
                 const label = topic.replace(/_/g, ' ');
                 const url = '/topics/' + topic;
-                return( <Button bsStyle='info' bsSize='xsmall'>
-                        <Link to={url} >{label}</Link>
+                return( <Button bsStyle='info' bsSize='xsmall' key={topic}>
+                        <Link to={url} key={topic} >{label}</Link>
                         </Button>);
             })
         }
@@ -121,3 +146,21 @@ export default class QuestionPost extends Component {
         );
     }
 }
+
+export default createContainer((props) => {
+  //TO-DO: when implement accounts, use below:
+  //const user = Meteor.user().username;
+  const user = props.post.user;
+  console.log(user);
+  const id = props.post._id;
+  console.log(id);
+  const handler = Meteor.subscribe('votes');
+  const loading = !handler.ready();
+  const votes = Votes.find({parentId: id, user}).count();
+  console.log(votes);
+  const voteExist = !!votes;
+  return {
+    ...props,
+    vote: votes
+  }
+}, QuestionPost)

@@ -16,27 +16,12 @@ Meteor.methods({
     Comments.insert({
       _id: id,
       content,
-      rating: 0,
       lastEdited,
       user: username,
       childId
     })
   },
-  'comments.rate'(_id, rate) {
-    new SimpleSchema({
-      rate: {
-        type: Number,
-        min: -2,
-        max: 2
-      }
-    }).validate({ rate });
 
-    Comments.update({ _id }, {
-      $inc: {
-        rating: rate
-      }
-    })
-  },
   'comments.edit'(_id, content) {
     let lastEdited = Math.round(( new Date().getTime()) / 1000);
     new SimpleSchema({

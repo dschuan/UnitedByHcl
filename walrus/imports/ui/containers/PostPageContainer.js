@@ -23,7 +23,7 @@ export default createContainer(({match}) => {
     postExists,
     childExists,
     children: childExists ? children : [],
-    posts: postExists ? post[0] : {}
+    posts: postExists ? post[0] : {},
     };
 
 }, PostPage);

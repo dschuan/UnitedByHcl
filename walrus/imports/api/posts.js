@@ -4,6 +4,7 @@ import shortid from 'shortid';
 import SimpleSchema from 'simpl-schema';
 import { Children } from './children';
 import { Comments } from './comments';
+import { Votes } from './votes';
 
 export const Posts = new Mongo.Collection('posts');
 if (Meteor.isServer) {
@@ -26,22 +27,6 @@ Meteor.methods({
       content,
       topic
     })
-  },
-
-  'posts.rate'(_id, rate) {
-    new SimpleSchema({
-      rate: {
-        type: Number,
-        max: 2,
-        min: -2
-      }
-    }).validate({ rate });
-
-    Posts.update({ _id }, {
-      $inc: {
-        rating: rate
-      }
-  });
   },
 
   'posts.edit'(_id, content) {
@@ -72,8 +57,12 @@ Meteor.methods({
         commentId = comment._id;
         Comments.remove(commentId);
       })
+      //remove child
       Children.remove(childId);
     })
+    //remove votes
+    Votes.remove({parentId: _id});
+
 
   },
 

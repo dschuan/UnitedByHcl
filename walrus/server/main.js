@@ -12,7 +12,7 @@ import {Categories} from '../imports/api/categories';
 import { Posts } from '../imports/api/posts';
 import {Children} from '../imports/api/children';
 import { Comments } from '../imports/api/comments';
-
+import { Votes } from '../imports/api/votes';
 import '../imports/startup/simple-schema-configuration.js';
 
 Meteor.startup(() => {
