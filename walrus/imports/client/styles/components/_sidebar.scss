@@ -6,9 +6,9 @@
 #sidebar-wrapper {
   margin-left: -250px;
   left: 250px;
-  width: 250px;
+  width: 350px;
   background: #778899;
-  position: fixed;
+  position: absolute;
   height: 100%;
   overflow-y: auto;
   z-index: 1000;
@@ -56,11 +56,11 @@
 .sidebar-nav {
   position: absolute;
   top: 0;
-  width: 250px;
+  width: 100%;
   list-style: none;
   margin: 0;
   padding: 0;
-  height: 80%;
+  height: 100%;
   overflow-y: scroll;
 }
 

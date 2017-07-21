@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
-import { Grid, Row, Col, Button } from 'react-bootstrap'
-
+import { Grid, Row, Col, Button, ButtonToolbar, ButtonGroup } from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 import { Posts } from '../../api/posts';
 import CategoryLabel from './CategoryLabel';
 import PostText from './PostText';
@@ -14,10 +14,18 @@ export default class QuestionPost extends Component {
         this.state = {
             post: {},
             hasAnswer:false,
-            hasPost:false
+            hasPost:false,
+            isUpvoted: false,
+            isDownvoted: false
         };
     }
 
+    upvote(){
+      console.log("upvote");
+    }
+    downvote(){
+      console.log("downvote");
+    }
     componentDidMount(){
       this.postTracker = Tracker.autorun(()=> {
         this.setState({
@@ -37,7 +45,11 @@ export default class QuestionPost extends Component {
         //console.log('QuestionPost', this.state);
         if(this.state.hasPost) {
             return this.state.post.topic.map((topic) => {
-                return <CategoryLabel category={topic} key={topic}/>;
+                const label = topic.replace(/_/g, ' ');
+                const url = '/topics/' + topic;
+                return( <Button bsStyle='info' bsSize='xsmall'>
+                        <Link to={url} >{label}</Link>
+                        </Button>);
             })
         }
     }
@@ -77,7 +89,9 @@ export default class QuestionPost extends Component {
                 <Row className="show-grid">
                     <Col md={9}>
                         <div className="question-content">
+                          <ButtonToolbar>
                             {this.renderCategory()}
+                          </ButtonToolbar>
                             <span className="details-small">
                                answer(s):
                             </span>
@@ -85,6 +99,12 @@ export default class QuestionPost extends Component {
                               rating: {this.state.post.rating}
                             </span>
                         </div>
+                    </Col>
+                    <Col md={6}>
+                    <ButtonGroup>
+                      <Button bsStyle='success' bsSize='small' onClick={this.upvote.bind(this)}> Upvote </Button>
+                      <Button bsStyle='danger' bsSize='small' onClick={this.downvote.bind(this)}> Downvote </Button>
+                    </ButtonGroup>
                     </Col>
                     <Col md={3} className="no-left-pad">
                         <span className="details-small">
