@@ -13,6 +13,7 @@ import Signup from '../Signup';
 import NotFound from '../NotFound';
 import Dashboard from '../Dashboard';
 import PostPage from '../containers/PostPageContainer';
+import Login from '../Login';
 
 const Home = homeProps => (
   <Router>
@@ -21,10 +22,11 @@ const Home = homeProps => (
       <AppSideBar {...homeProps} />
       <Grid>
         <Switch>
-          <Route exact name="home" path="/" component={Dashboard} />
+          <Authenticated exact name="home" path="/" component={Dashboard} {...homeProps} />
           <Authenticated path="/topics" component={TopicsMain} {...homeProps} />
           <Authenticated exact path="/posts/:_pid" component={PostPage} {...homeProps }/>
           <Public path="/signup" component={Signup} {...homeProps} />
+          <Route path="/login" component={Login} {...homeProps} />
           <Route component={NotFound} />
         </Switch>
       </Grid>
@@ -41,7 +43,7 @@ const composer = (props) => {
   const loggingIn = Meteor.loggingIn();
   return ({
     loggingIn,
-    authenticated: !loggingIn && !!Meteor.userId(),
+    authenticated: !loggingIn && !!Meteor.user(),
   });
 };
 

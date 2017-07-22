@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
+import { Tracker } from 'meteor/tracker';
 import { Redirect } from 'react-router-dom';
 import { Grid, Row, Col, Modal, PageHeader, Button, DropdownButton, MenuItem, Panel, Well, ButtonToolbar, Clearfix } from 'react-bootstrap';
 
@@ -17,11 +18,11 @@ export default class PostPage extends Component {
         // const postId = this.props.location.pathname.replace('/', '');
         this.state = {
             haveSuggestions: true,
-            post : props.posts,
-            isOp: false,
+            post : {},
             isEditingPost: false,
             showWarning: false,
-            redirect: false
+            redirect: false,
+            user: null
         }
     }
 
@@ -46,6 +47,12 @@ export default class PostPage extends Component {
       this.setState({
         showWarning: !this.state.showWarning
       })
+    }
+    componentDidMount(){
+          this.setState({
+            post: this.props.posts,
+            user: this.props.user
+        })
     }
 
     renderAnswers() {
@@ -80,7 +87,7 @@ export default class PostPage extends Component {
     }
 
     renderOPOptions(){
-      if(this.state.isOp) {
+      if(this.props.posts.user === this.props.user.username) {
         return (
           <DropdownButton id='post-admin-panel' title='Options' bsStyle='success' >
             <MenuItem id='edit-post' onSelect={this.editPost.bind(this)} eventKey="1">Edit this post</MenuItem>
@@ -137,6 +144,7 @@ export default class PostPage extends Component {
 
     render() {
         console.log('Post Page', this.props);
+        console.log('Post page state', this.state);
         if (this.props.post.length === 0) {
             return null;
         }
@@ -154,7 +162,6 @@ export default class PostPage extends Component {
                 {this.renderAnswers()}
                 <Button bsSize='small' bsStyle='link' onClick={this.toggleSuggestions.bind(this)}> Switch off Suggestions </Button>
                 <div>
-                <Button bsSize='small' bsStyle='warning' onClick={this.toggleOp.bind(this)}> To toggle if visiting user is OP or not </Button>
                 </div>
             </div>
         );

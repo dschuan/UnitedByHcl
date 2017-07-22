@@ -14,6 +14,7 @@ export default createContainer(({match}) => {
   const loading = !postHandler.ready()
   const post = Posts.find({_id: postId}).fetch();
   const children = Children.find({postId});
+  const user = Meteor.user();
   console.log(post);
   console.log(children);
   const postExists = !loading && !!post;
@@ -22,6 +23,7 @@ export default createContainer(({match}) => {
     post,
     postExists,
     childExists,
+    user,
     children: childExists ? children : [],
     posts: postExists ? post[0] : {},
     };

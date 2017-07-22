@@ -4,7 +4,7 @@ import { Accounts } from 'meteor/accounts-base';
 
 Accounts.validateNewUser((user) => {
   const email = user.emails[0].address;
-
+  const username = user.username;
   new SimpleSchema({
     email: {
       type: String,
@@ -20,9 +20,16 @@ Accounts.validateNewUser((user) => {
 
 Meteor.methods({
   'userExists'(username) {
-    let res = Meteor.users.findOne({username: username}).fetch();
+    let res = Accounts.findUserByUsername(username);
     if (res) {
       throw new Meteor.Error('Username is already taken')
+    }
+  },
+  'adduser'({username, email, password, profile}) {
+    Accounts.createUser({username, email, password, profile});
+    const temp = Accounts.findUserByUsername(username);
+    if(!temp) {
+      throw new Meteor.Error('User could not be created');
     }
   },
   'getUserName'() {

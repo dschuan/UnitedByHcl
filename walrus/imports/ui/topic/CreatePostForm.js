@@ -17,11 +17,12 @@ export default class CreatePostForm extends Component {
         e.preventDefault();
         title = this.title.value;
         post = this.input.value;
+        name = Meteor.user().username;
         console.log(this.state.formValue);
         const topicList = this.state.formValue;
         // show error if err, show complete if complete
         if(!!post && !!topicList) {
-            Meteor.call('posts.insert','jiarui', post, title, topicList);
+            Meteor.call('posts.insert', name , post, title, topicList);
             this.input.value = '';
             this.setState({
                 showComplete: true

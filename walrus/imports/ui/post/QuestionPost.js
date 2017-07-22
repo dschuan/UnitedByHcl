@@ -14,9 +14,6 @@ class QuestionPost extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            post: {},
-            hasAnswer:false,
-            hasPost:false,
             isUpvoted: false,
             isDownvoted: false,
         };
@@ -51,25 +48,12 @@ class QuestionPost extends Component {
         console.log('downvote failed');
       }
     }
-    componentDidMount(){
-      this.postTracker = Tracker.autorun(()=> {
-        this.setState({
-          post: this.props.post,
-          hasAnswer: this.props.hasAnswer,
-          hasPost: this.props.hasPost
-        })
-      })
-    }
-
-    componentWillUnmount(){
-      this.postTracker.stop();
-    }
 
     renderCategory() {
         // TODO: render category either based on _id or category name
         //console.log('QuestionPost', this.state);
         if(this.state.hasPost) {
-            return this.state.post.topic.map((topic) => {
+            return this.props.post.topic.map((topic) => {
                 const label = topic.replace(/_/g, ' ');
                 const url = '/topics/' + topic;
                 return( <Button bsStyle='info' bsSize='xsmall' key={topic}>
@@ -81,12 +65,12 @@ class QuestionPost extends Component {
 
     renderQuestionContent() {
       if(this.state.hasPost) {
-        return <QuestionContent postId={this.state.post._id} post={this.state.post} />
+        return <QuestionContent postId={this.props.post._id} post={this.props.post} />
       }
     }
 
     renderTimePosted() {
-      const editTime = this.state.post.lastEdited;
+      const editTime = this.props.post.lastEdited;
       const currentTime = Math.round((new Date().getTime()) / 1000);
       const timeSinceEdit = currentTime - editTime;
       if (timeSinceEdit < 60) {
@@ -121,7 +105,7 @@ class QuestionPost extends Component {
                                answer(s):
                             </span>
                             <span className="details-small">
-                              rating: {this.state.post.rating}
+                              rating: {this.props.post.rating}
                             </span>
                         </div>
                     </Col>
@@ -133,8 +117,8 @@ class QuestionPost extends Component {
                     </Col>
                     <Col md={3} className="no-left-pad">
                         <span className="details-small">
-                           posted {this.renderTimePosted()} ago by {' '}
-                           <Button bsStyle="link" className="inline-link">{this.state.post.user}</Button>
+                           edited {this.renderTimePosted()} ago by {' '}
+                           <Button bsStyle="link" className="inline-link">{this.props.post.user}</Button>
                         </span>
                     </Col>
                 </Row>
