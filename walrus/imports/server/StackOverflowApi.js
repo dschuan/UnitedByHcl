@@ -1,43 +1,42 @@
 import { Meteor } from 'meteor/meteor';
-import fs from 'fs';
 import request from 'request';
-import cheerio from 'cheerio';
+import { key } from './googleApi';
 
 export function setupStackOverflowApi(app) {
+    let cx = '016093447816794459056:pu5mhu5sozs'
 
     app.post('/api/stackoverflow', (req, res, next) => {
-        // get params from req.body
         console.log(req.body.title);
-        let title = req.body.title
+        let title = req.body.title;
         let formatTitle = title.replace(" ", "%20");
-        let url = "http://api.stackexchange.com/2.2/search?order=desc&sort=relevance&intitle="+formatTitle+"&site=stackoverflow";
-        let options = {
+        url = 'https://www.googleapis.com/customsearch/v1?key=' + key+ '&cx=' + cx +'&q=' + formatTitle;
+        options = {
             url: url,
-            json: true,
-            gzip: true
-        };
-        request(options, function(error, response, body){
+            json : true
+        }
+
+        console.log(url);
+        request(options, function(error, body, response) {
             if (error) return error;
-            let items = body.items;
-            let filteredItems = items.filter((item) => item.is_answered === true && item.score > 0 && item.accepted_answer_id !== null);
-            //console.log(filteredItems);
-            let answer_id = filteredItems.map((item) => item.accepted_answer_id);
-            let url2 = "https://stackoverflow.com/a/" + answer_id[0];
-            let id = "#answer-" + answer_id[0];
-
-            request(url2, function(error, response, html) {
-                if(error) return error;
-
-                    let $ = cheerio.load(html);
-                    let json = { content: ""};
-                    $(id).filter(function() {
-                        var data = $(this);
-                        //console.log(data.children().children().children().first().children().first().next().children().children().text());
-                        content = data.children().children().children().first().children().first().next().children().children().text();
-                        json.content = content;
+            items = body.body.items;
+            let allAnswers = [];
+            let answers= items.map((item) => {
+                if(item.pagemap.answer !== undefined) {
+                    item.pagemap.answer.map((ans) => {
+                        json = {};
+                        json["answer"] = ans;
+                        json["link"] = item.link;
+                        allAnswers.push(json);
                     });
-                    res.status(200).json(json);
+                }
             });
+            allAnswers.sort(function(a, b) {
+                return parseFloat(b.answer.upvotecount) - parseFloat(a.answer.upvotecount);
+            });
+            finalAnswer = {};
+            finalAnswer["info"] = allAnswers[0].answer.text;
+            finalAnswer["link"] = allAnswers[0].link;
+            res.status(200).json(finalAnswer);
         });
     });
 

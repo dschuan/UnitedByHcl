@@ -8,7 +8,7 @@ const TopicsMain = (props) => {
   const newUrl = props.match.path + "/:_id";
   console.log(newUrl);
   return (
-      <div>
+      <div className="topic-content">
       <Switch>
         <Route exact path = "/topics" component={AllTopicsList} {...props} />
         <Route exact path = {newUrl} component={TopicPage} {...props}/>

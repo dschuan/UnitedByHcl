@@ -33,3 +33,28 @@
 .pageHeader {
   padding-right: 40px;
 }
+
+.suggestion-item {
+    border: 0.2rem;
+    border-style: groove;
+    border-radius: 1rem;
+    padding: 1rem;
+    height: 23rem;
+    max-height: 23rem;
+}
+
+.suggestion-item-text {
+    max-height: 18rem;
+    height: 18rem;
+    overflow: hidden;
+}
+
+.api-icon {
+    height: 3rem;
+    width: 3rem;
+    display: inline;
+}
+
+.suggestion-container {
+    margin-top: 3rem;
+}

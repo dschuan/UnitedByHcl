@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Redirect } from 'react-router-dom';
+import { Grid, Row, Col, Modal, PageHeader, Button, DropdownButton, MenuItem, Panel, Well, ButtonToolbar, Clearfix } from 'react-bootstrap';
+
 import QuestionPost from '../post/QuestionPost';
 import AnswerList from '../post/AnswerList';
-import { Grid, Row, Col, Modal, PageHeader, Button, DropdownButton, MenuItem, Panel, Well, ButtonToolbar } from 'react-bootstrap';
 import EditPostTextBox from '../post/EditPostTextBox';
+import SuggestionContainer from '../post/SuggestionContainer';
 
 export default class PostPage extends Component {
     constructor(props) {
@@ -53,6 +55,7 @@ export default class PostPage extends Component {
             return (
             <div className="text-center">
                  Nobody has posted any answers here yet. Meanwhile, here are some suggested answers from elsewhere.
+                 {this.renderSuggestions()}
             </div>
             );
         } else {
@@ -92,19 +95,7 @@ export default class PostPage extends Component {
     renderSuggestions(){
       if (this.state.haveSuggestions) {
         return (
-          <Grid >
-            <Row className='show-grid'>
-              <Col sm={6} md={3} className="col-sm-4">
-                      Quora
-              </Col>
-              <Col sm={6} md={3} className="col-sm-4">
-                      Stackoverflow
-              </Col>
-              <Col sm={6} md={3} className="col-sm-4">
-                      Reddit
-              </Col>
-            </Row>
-          </Grid>
+          <SuggestionContainer title={this.props.posts.title}/>
         )
       }
     }
