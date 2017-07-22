@@ -64,7 +64,7 @@ class QuestionPost extends Component {
     }
 
     renderQuestionContent() {
-      if(this.state.hasPost) {
+      if(this.props.hasPost) {
         return <QuestionContent postId={this.props.post._id} post={this.props.post} />
       }
     }

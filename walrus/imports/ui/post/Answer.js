@@ -16,12 +16,12 @@ export default class Answer extends Component {
           return this.props.comments.map((comment) => {
             return (
               <ListGroupItem key={comment._id}>
-              <Comment comment={comment} key={comment._id}/>
+              <Comment comment={comment} thisUser={this.props.thisUser} key={comment._id}/>
               </ListGroupItem>
             )
         })
       } else {
-        return <small> No comments yet </small>
+        return <ListGroupItem key={this.props._id}> <small>No comments yet</small> </ListGroupItem>
       }
     }
     showCommentInput(){
@@ -31,7 +31,7 @@ export default class Answer extends Component {
     }
     renderCommentField(){
       if(this.state.showTextInput) {
-        return (<CommentTextBox showCommentInput={this.showCommentInput.bind(this)} childId={this.props.answer._id} />)
+        return (<CommentTextBox thisUser={this.props.thisUser} showCommentInput={this.showCommentInput.bind(this)} childId={this.props.answer._id} />)
       } else {
         return ( <Button bsStyle='info' onClick={this.showCommentInput.bind(this)}> Comment </Button>)
       }

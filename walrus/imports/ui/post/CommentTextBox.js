@@ -15,10 +15,11 @@ export default class CommentTextBox extends Component {
         // TODO get userId
         e.preventDefault();
         comment = this.input.value;
+        username = this.props.thisUser.username;
         console.log('submitting comment', this.input.value, this.props.childId);
         // show error if err, show complete if complete
         if(comment) {
-            Meteor.call('comments.insert', comment, this.props.childId, 'jiarui');
+            Meteor.call('comments.insert', comment, this.props.childId, username);
             this.input.value = '';
             this.setState({
                 showComplete: true

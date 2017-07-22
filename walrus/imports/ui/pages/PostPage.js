@@ -57,7 +57,7 @@ export default class PostPage extends Component {
 
     renderAnswers() {
         if (this.props.childExists) {
-            return <AnswerList children={this.props.children}/>;
+            return <AnswerList thisUser={this.props.user} children={this.props.children}/>;
         } else if (this.state.haveSuggestions) {
             return (
             <div className="text-center">

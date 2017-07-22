@@ -7,7 +7,7 @@ import Answer from '../containers/AnswerContainer';
 export default class AnswerList extends Component {
     renderAnswers() {
         return this.props.children.map((answer) => {
-            return <Answer answer={answer} key={answer._id}/>
+            return <Answer answer={answer} key={answer._id} thisUser={this.props.thisUser}/>
         });
     }
 

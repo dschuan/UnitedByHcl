@@ -16,9 +16,10 @@ export default class AnswerTextBox extends Component {
         e.preventDefault();
         answer = this.input.value;
         console.log('submitting post', this.input.value);
+        name= Meteor.user().username;
         // show error if err, show complete if complete
         if(answer) {
-            Meteor.call('children.insert', answer, 'jiarui', this.props.postId);
+            Meteor.call('children.insert', answer, name, this.props.postId);
             this.refs.answer.value = '';
             this.setState({
                 showComplete: true
