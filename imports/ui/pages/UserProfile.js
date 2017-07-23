@@ -8,8 +8,8 @@ export default class UserProfile extends Component{
       return(
         <div>
             <Well key={rating.topic}>
-            <h4>{rating.topic.replace("_"," : ")}</h4>
-            <p>{rating.score}</p>
+            <h4><strong>Topic:</strong> {rating.topic.replace("_"," , ")}</h4>
+            <p>Weighted Rating: {rating.score}</p>
             </Well>
         </div>
       )
