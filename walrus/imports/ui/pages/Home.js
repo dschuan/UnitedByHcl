@@ -22,7 +22,9 @@ const Home = homeProps => (
 
       <Grid>
         <Row>
-        <Col xs={6} md={4}><AppSideBar {...homeProps} /></Col>
+        <Col xs={6} md={3}>
+        <AppSideBar {...homeProps}/>
+        </Col>
         <Col xs={12} md={6}>
         <Switch>
           <Authenticated exact name="home" path="/" component={Dashboard} {...homeProps} />
