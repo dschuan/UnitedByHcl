@@ -20,7 +20,6 @@ const Home = homeProps => (
     <div className="App">
       <AppHeaderBar {...homeProps} />
 
-      <Grid>
         <Row>
         <Col xs={6} md={3}>
         <AppSideBar {...homeProps}/>
@@ -36,7 +35,6 @@ const Home = homeProps => (
         </Switch>
         </Col>
         </Row>
-      </Grid>
     </div>
   </Router>
 );
