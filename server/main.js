@@ -8,7 +8,6 @@ import { setupStackOverflowApi } from '../imports/server/StackOverflowApi';
 import { setupQuoraApi } from '../imports/server/QuoraApi';
 import { setupRedditApi } from '../imports/server/RedditApi';
 import '../imports/api/users';
-import { Links } from '../imports/api/links';
 import {Categories} from '../imports/api/categories';
 import { Posts } from '../imports/api/posts';
 import {Children} from '../imports/api/children';
@@ -18,27 +17,7 @@ import { Endorsements } from '../imports/api/endorsements';
 import '../imports/startup/simple-schema-configuration.js';
 
 Meteor.startup(() => {
-  WebApp.connectHandlers.use((req, res, next) => {
-    const app = express();
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: false}));
 
-    setupStackOverflowApi(app);
-    setupQuoraApi(app);
-    setupRedditApi(app);
-
-    const _id = req.url.slice(1);
-    const link = Links.findOne({ _id });
-
-    if (link) {
-      res.statusCode = 302;
-      res.setHeader('Location', link.url);
-      res.end();
-      Meteor.call('links.trackVisit', _id);
-    } else {
-      next();
-    }
-  });
 
   if (Categories.find({}).count() === 0) {
     const nameList = [

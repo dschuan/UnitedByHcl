@@ -18,8 +18,8 @@ export default class UserProfile extends Component{
   }
 
   renderDefault(){
-    if(this.props.user.profile.ratings === 0){
-      return <Well> User has not posted any answers yet </Well>
+    if(this.props.user.profile.ratings.length === 0){
+      return <Well> {this.props.username} has not posted any answers yet </Well>
     }
   }
   render(){
