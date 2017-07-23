@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Grid, Row, Col, Panel, ListGroup, ListGroupItem, Button, Glyphicon, Tooltip, OverlayTrigger} from 'react-bootstrap';
+import {Grid, Row, Col, Panel, ListGroup, ListGroupItem, Button, Glyphicon, Tooltip, OverlayTrigger, ButtonGroup} from 'react-bootstrap';
 import Comment from './Comment';
 import CommentTextBox from './CommentTextBox';
 import PostText from './PostText';
@@ -173,41 +173,46 @@ export default class Answer extends Component {
         console.log('Answer props', this.props);
         console.log('Answer state', this.state);
         return (
-            <Grid>
+            <Grid className="answer-container">
               <Row>
-                <Col xs={6} md={3}>
+                <Col xs={6} md={6}>
                 <span>
-                        Answered by: <Link to={('/users/' + this.props.answer.username)}><Button className="btn btn-link">{this.props.answer.username} </Button></Link>
+                        Answered by:
+                        <Link to={('/users/' + this.props.answer.username)}><Button className="btn btn-link">{this.props.answer.username} </Button></Link>
                 </span>
                 </Col>
                 <Col xs={6} md={3}>
-                <span className="details-small">
-                    Updated on {this.renderTime()} . Post rated {this.props.answer.rating}
-                </span>
+                    <span>
+                        <Button bsSize='small' bsStyle='success' onClick={this.upvote.bind(this)}>
+                        <Glyphicon glyph="hand-up" />
+                        </Button>
+                    </span>
+                    <span>
+                        <Button bsSize='small' bsStyle='danger' onClick={this.downvote.bind(this)}>
+                            <Glyphicon glyph="hand-down" />
+                        </Button>
+                    </span>
+                    <span>
+                        {this.renderEndorsementButton()}
+                    </span>
                 </Col>
-                <Col xs={6} md={3}>
-                <span className="details-small">
-                    User flair
-                </span>
-                <Col xs={6} md={3}>
-                <Button bsSize='small' bsStyle='success' onClick={this.upvote.bind(this)}>Upvote</Button>
-                <Button bsSize='small' bsStyle='danger' onClick={this.downvote.bind(this)}>Downvote</Button>
-
-                </Col>
-                </Col>
-                <Col xs={6} md={3}>
+                <Col xs={6} md={1} mdOffset={2}>
                 {this.renderDelete()}
                 </Col>
               </Row>
               <Row>
+                  <Col xs={6} md={6}>
+                      <span className="details-small">
+                          Updated on {this.renderTime()} . Post rated {this.props.answer.rating}
+                      </span>
+                  </Col>
+              </Row>
+              <Row className="answer-content">
+                <Col xs={6} md={1}>
+                    {this.renderEndorsements()}
+                </Col>
                 <Col xs={6} md={4}>
                   <PostText text={this.props.answer.content} />
-                </Col>
-                <Col xs={6} md={2}>
-                  {this.renderEndorsements()}
-                </Col>
-                <Col xs={6} md={2}>
-                  {this.renderEndorsementButton()}
                 </Col>
               </Row>
                 <hr />

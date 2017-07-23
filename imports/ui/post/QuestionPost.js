@@ -112,16 +112,13 @@ class QuestionPost extends Component {
                 </Row>
                 <Row>
                         <span className="details-small">
-                           answer(s): {this.props.noOfAnswers}{' '}
-                        </span>
-                        <span className="details-small">
-                          rating: {this.props.post.rating}{"  "}
+                          Rating: {this.props.post.rating + "   "}
                         </span>
                         <Button bsStyle='success' bsSize='xsmall' onClick={this.upvote.bind(this)}>
-                            <Glyphicon glyph="thumbs-up" />
+                            <Glyphicon glyph="hand-up" />
                         </Button>
                         <Button bsStyle='danger' bsSize='xsmall' onClick={this.downvote.bind(this)}>
-                            <Glyphicon glyph="thumbs-down" />
+                            <Glyphicon glyph="hand-down" />
                         </Button>
                 </Row>
                 <Row><br /></Row>
