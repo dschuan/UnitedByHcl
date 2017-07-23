@@ -31,7 +31,7 @@ export default class UserProfileIcon extends Component {
     render() {
         return (
           <div>
-          <DropdownButton bsStyle='info' title='Profile' id='profile-drop-down'>
+          <DropdownButton bsStyle='info' title='Profile' id='profile-drop-down' pullRight>
             <MenuItem eventKey='1' onClick={this.toggleRedirect.bind(this)}>Go to Profile</MenuItem>
             <MenuItem eventKey='2' onClick={this.logout.bind(this)}>Logout</MenuItem>
           </DropdownButton>
