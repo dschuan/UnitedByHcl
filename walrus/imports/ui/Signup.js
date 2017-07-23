@@ -1,6 +1,6 @@
 import React from 'react';
 import { Accounts } from 'meteor/accounts-base';
-import { PageHeader, Jumbotron, Grid, Form, Button, FormControl, FormGroup, ControlLabel} from 'react-bootstrap';
+import { PageHeader, Jumbotron, Grid, Form, Button, FormControl, FormGroup, ControlLabel, Col, Row} from 'react-bootstrap';
 import { Redirect, Link } from 'react-router-dom';
 
 export default class Signup extends React.Component {
@@ -84,44 +84,50 @@ export default class Signup extends React.Component {
 
   render() {
     return (
-      <Jumbotron>
-          <PageHeader>Join REPPO</PageHeader>
+        <Grid>
+            <Row>
+                <Col md={10} mdOffset={2}>
+                  <Jumbotron >
+                      <PageHeader>Join REPPO</PageHeader>
 
-          {this.state.error ? <p>{this.state.error}</p> : undefined}
+                      {this.state.error ? <p>{this.state.error}</p> : undefined}
 
-          <form onSubmit={this.onSubmit.bind(this)} >
-            <FormGroup validationState={this.getValidationState()} controlId='formUsername'>
-            <ControlLabel>Username here</ControlLabel>
-            <FormControl
-              type='text'
-              placeholder='Enter the username you want'
-              inputRef={(ref) => {this.username = ref}}/>
-            </FormGroup>
+                      <form onSubmit={this.onSubmit.bind(this)} >
+                        <FormGroup validationState={this.getValidationState()} controlId='formUsername'>
+                        <ControlLabel>Username here</ControlLabel>
+                        <FormControl
+                          type='text'
+                          placeholder='Enter the username you want'
+                          inputRef={(ref) => {this.username = ref}}/>
+                        </FormGroup>
 
-            <FormGroup validationState={this.getPasswordValidity()} controlId='formPassword'>
-              <ControlLabel>Password here </ControlLabel>
-              <FormControl
-                type='password'
-                placeholder='Enter your password'
-                value={this.state.password}
-                onChange={this.handlePassChange.bind(this)}
-                inputRef={(ref) => {this.password = ref}}/>
-            </FormGroup>
+                        <FormGroup validationState={this.getPasswordValidity()} controlId='formPassword'>
+                          <ControlLabel>Password here </ControlLabel>
+                          <FormControl
+                            type='password'
+                            placeholder='Enter your password'
+                            value={this.state.password}
+                            onChange={this.handlePassChange.bind(this)}
+                            inputRef={(ref) => {this.password = ref}}/>
+                        </FormGroup>
 
-            <FormGroup controlId='email'>
-              <ControlLabel> Email address here </ControlLabel>
-              <FormControl
-                type='text'
-                placeholder='foo@bar.com'
-                inputRef={(ref) => {this.email = ref}} />
-            </FormGroup>
+                        <FormGroup controlId='email'>
+                          <ControlLabel> Email address here </ControlLabel>
+                          <FormControl
+                            type='text'
+                            placeholder='foo@bar.com'
+                            inputRef={(ref) => {this.email = ref}} />
+                        </FormGroup>
 
-            <Button bsStyle='success' block type='submit'>Create Account</Button>
-          </form>
-          <hr />
-          <Link to='/login'><Button bsStyle='primary' bsSize='small'> Have an account?</Button></Link>
-          {this.redirect()}
-      </Jumbotron>
+                        <Button bsStyle='success' block type='submit'>Create Account</Button>
+                      </form>
+                      <hr />
+                      <Link to='/login'><Button bsStyle='primary' bsSize='small'> Have an account?</Button></Link>
+                      {this.redirect()}
+                  </Jumbotron>
+              </Col>
+          </Row>
+      </Grid>
     );
   }
 
