@@ -98,21 +98,18 @@ class QuestionPost extends Component {
                 <Row className="show-grid">
                     <Col md={6}>
                         <div className="question-content">
-                          <ButtonToolbar>
-                            {this.renderCategory()}
-                          </ButtonToolbar>
+                              <ButtonToolbar>
+                                {this.renderCategory()}
+                              </ButtonToolbar>
                             <span className="details-small">
-                               answer(s):
+                               answer(s): {this.props.noOfAnswers}
                             </span>
                             <span className="details-small">
                               rating: {this.props.post.rating}
                             </span>
                         </div>
                     </Col>
-
-
-
-                    <Col md={3} className="no-left-pad">
+                    <Col md={3} mdOffset={1}>
                         <span className="details-small">
                            edited {this.renderTimePosted()} ago by {' '}
                            <Link to={('/users/' + this.props.post.user)}><Button bsStyle="link" className="inline-link">{this.props.post.user}</Button></Link>
@@ -120,18 +117,15 @@ class QuestionPost extends Component {
                     </Col>
                 </Row>
                 <Row>
-                        <Button bsStyle='success' bsSize='small' onClick={this.upvote.bind(this)}> Upvote </Button><span>    </span>
-                        <Button bsStyle='danger' bsSize='small' onClick={this.downvote.bind(this)}> Downvote </Button>
+                        <Button bsStyle='success' bsSize='xsmall' onClick={this.upvote.bind(this)}> Upvote </Button><span>    </span>
+                        <Button bsStyle='danger' bsSize='xsmall' onClick={this.downvote.bind(this)}> Downvote </Button>
 
                 </Row>
                 <Row><br /></Row>
                 <Row>
-                  <Col xs={6} md={4} />
-                    <Col xs={6} md={4}>
+                    <Col xs={11} md={8}>
                     {this.renderQuestionContent()}
                     </Col>
-                  <Col xs={6} md={4} />
-
                 </Row>
                 <hr />
             </Grid>

@@ -10,6 +10,7 @@ export function setupQuoraApi(app) {
         let title = req.body.title;
         let formatTitle = title.replace(" ", "%20");
         url = 'https://www.googleapis.com/customsearch/v1?key=' + key+ '&cx=' + cx +'&q=' + formatTitle;
+        console.log(url);
         options = {
             url: url,
             json : true

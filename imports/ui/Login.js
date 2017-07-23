@@ -46,7 +46,7 @@ class Login extends Component {
     return (
       <Grid>
         <Row>
-          <Col xs={2} md={4} />
+          <Col xs={2} md={1} />
           <Col xs={10} md={6} >
           <PageHeader>REPPO Login
             <hr />
@@ -57,7 +57,7 @@ class Login extends Component {
         </Row>
 
         <Row>
-          <Col xs={2} md={4}></Col>
+          <Col xs={2} md={1}></Col>
           <Col xs={10} md={6}>
 
 

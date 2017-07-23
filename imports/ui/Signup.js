@@ -86,7 +86,7 @@ export default class Signup extends React.Component {
     return (
         <Grid>
             <Row>
-                <Col md={10} mdOffset={2}>
+                <Col md={10}>
                   <Jumbotron >
                       <PageHeader>Join REPPO</PageHeader>
 

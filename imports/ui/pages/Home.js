@@ -25,7 +25,7 @@ const Home = homeProps => (
         <Col xs={6} md={3}>
         <AppSideBar {...homeProps}/>
         </Col>
-        <Col xs={12} md={6}>
+        <Col xs={12} md={8}>
         <Switch>
           <Authenticated exact name="home" path="/" component={Dashboard} {...homeProps} />
           <Authenticated path="/topics" component={TopicsMain} {...homeProps} />

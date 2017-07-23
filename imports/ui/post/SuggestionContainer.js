@@ -9,7 +9,7 @@ export default class SuggestionContainer extends Component {
             <div className="suggestion-container">
                 <Grid >
                   <Row className='show-grid'>
-                      <Col sm={6} md={3} mdOffset={1}>
+                      <Col sm={6} md={3}>
                           <SuggestionItem site="quora" title={this.props.title}/>
                       </Col>
                       <Col sm={6} md={3}>

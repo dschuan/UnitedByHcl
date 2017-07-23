@@ -41,7 +41,6 @@ export default class AppSideBar extends Component {
                 <ul className="sidebar-nav">
                     {this.renderSideBarItem()}
                 </ul>
-                <SideBarFooter />
             </div>
         );
     }

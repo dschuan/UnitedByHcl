@@ -49,7 +49,7 @@ class TopicsList extends Component{
       return (
         <Grid>
         <Row>
-        <Col xs={16} md={10}>
+        <Col xs={16} md={9}>
         {this.renderPostModal()}
         </Col>
         <Col xs={2} md={1} >
