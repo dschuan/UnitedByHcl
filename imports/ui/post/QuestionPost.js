@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Tracker } from 'meteor/tracker';
-import { Grid, Row, Col, Button, ButtonToolbar, ButtonGroup } from 'react-bootstrap';
+import { Grid, Row, Col, Button, ButtonToolbar, ButtonGroup, Glyphicon } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import { Posts } from '../../api/posts';
 import CategoryLabel from './CategoryLabel';
@@ -101,12 +101,6 @@ class QuestionPost extends Component {
                               <ButtonToolbar>
                                 {this.renderCategory()}
                               </ButtonToolbar>
-                            <span className="details-small">
-                               answer(s): {this.props.noOfAnswers}
-                            </span>
-                            <span className="details-small">
-                              rating: {this.props.post.rating}
-                            </span>
                         </div>
                     </Col>
                     <Col md={3} mdOffset={1}>
@@ -117,9 +111,18 @@ class QuestionPost extends Component {
                     </Col>
                 </Row>
                 <Row>
-                        <Button bsStyle='success' bsSize='xsmall' onClick={this.upvote.bind(this)}> Upvote </Button><span>    </span>
-                        <Button bsStyle='danger' bsSize='xsmall' onClick={this.downvote.bind(this)}> Downvote </Button>
-
+                        <span className="details-small">
+                           answer(s): {this.props.noOfAnswers}{' '}
+                        </span>
+                        <span className="details-small">
+                          rating: {this.props.post.rating}{"  "}
+                        </span>
+                        <Button bsStyle='success' bsSize='xsmall' onClick={this.upvote.bind(this)}>
+                            <Glyphicon glyph="thumbs-up" />
+                        </Button>
+                        <Button bsStyle='danger' bsSize='xsmall' onClick={this.downvote.bind(this)}>
+                            <Glyphicon glyph="thumbs-down" />
+                        </Button>
                 </Row>
                 <Row><br /></Row>
                 <Row>

@@ -11,7 +11,7 @@ export default class SuggestionItem extends Component {
             content : "",
             url: "",
         };
-        //this.fetchInfo();
+        this.fetchInfo();
     }
 
     fetchInfo() {

@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
 import Signup from './Signup';
+import { Image } from 'react-bootstrap';
 
 const styles = {
   page: {
@@ -37,7 +38,14 @@ const styles = {
     color: '#00BBE8',
     fontSize: 12,
 
-  }
+},
+
+postFrequency: {
+    paddingLeft: 20,
+    paddingRight:20,
+    paddingBottom: 5
+}
+
 }
 
 
@@ -66,6 +74,10 @@ export default class Dashboard extends Component {
             <p style={styles.text}>Test service's down link and up link speed to handle large user load.</p>
             <a href='#' style={styles.link}><p>TEST SERVICE</p></a>
           </div>
+        </div>
+        <div style={styles.postFrequency}><h4>Post Freqency</h4></div>
+        <div style={styles.postFrequency}>
+            <Image src={"/graphs/PostFrequency.png"} responsive />
         </div>
       </div>
 
