@@ -17,7 +17,13 @@ import { Endorsements } from '../imports/api/endorsements';
 import '../imports/startup/simple-schema-configuration.js';
 
 Meteor.startup(() => {
+  const app = express();
+  app.use(express.static(__dirname + "/public"));
+  app.use(bodyParser.json());
 
+  setupStackOverflowApi(app);
+  setupQuoraApi(app);
+  setupRedditApi(app);
 
   if (Categories.find({}).count() === 0) {
     const nameList = [
