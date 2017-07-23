@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Grid } from 'react-bootstrap';
+import { Grid, Col, Row } from 'react-bootstrap';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import App from '../App';
@@ -19,8 +19,11 @@ const Home = homeProps => (
   <Router>
     <div className="App">
       <AppHeaderBar {...homeProps} />
-      <AppSideBar {...homeProps} />
+
       <Grid>
+        <Row>
+        <Col xs={6} md={4}><AppSideBar {...homeProps} /></Col>
+        <Col xs={12} md={6}>
         <Switch>
           <Authenticated exact name="home" path="/" component={Dashboard} {...homeProps} />
           <Authenticated path="/topics" component={TopicsMain} {...homeProps} />
@@ -29,6 +32,8 @@ const Home = homeProps => (
           <Route path="/login" component={Login} {...homeProps} />
           <Route component={NotFound} />
         </Switch>
+        </Col>
+        </Row>
       </Grid>
     </div>
   </Router>

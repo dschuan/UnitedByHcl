@@ -1,17 +1,17 @@
 #wrapper {
-  padding-left: 250px;
+  padding-left: 0px;
   transition: all 0.4s ease 0s;
 }
 
 #sidebar-wrapper {
-  margin-left: -25rem;
-  left: 25rem;
-  width: 20%;
+  margin-left: 0rem;
+  left: -50rem;
+  width: 100%;
   background: #778899;
-  position: absolute;
-  height: 100%;
+  position: relative;
+  height: 1000px;
   overflow-y: auto;
-  z-index: 1000;
+  z-index: 500;
   transition: all 0.4s ease 0s;
 }
 
