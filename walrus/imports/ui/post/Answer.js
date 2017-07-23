@@ -106,11 +106,12 @@ export default class Answer extends Component {
               </Row>
                 <hr />
               <Row>
+                  <Col xs={18} md={10}>
                   <Panel bsStyle='default' collapsible header='Comments'>
                     {this.renderCommentList()}
                   </Panel>
                   {this.renderCommentField()}
-                  <Col xs={6} md={3} />
+                  </Col>
               </Row>
             </Grid>
         );
