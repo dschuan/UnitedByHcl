@@ -66,31 +66,31 @@ Meteor.startup(() => {
       {
         name: "Admin",
         content: "Lorem ipsum dolor sit amet",
-        title: "Topic_1",
+        title: "How do I compare strings in Java?",
         topic: ["coding_java"]
       },
       {
         name: "Admin",
         content: "Lorem ipsum dolor sit amet2",
-        title: "Topic_5",
+        title: "Is Java pass-by-reference or pass-by-value?",
         topic: ["coding_java"]
       },
       {
         name: "Admin",
         content: "Lorem ipsum dolor sit amet3",
-        title: "Topic_2",
+        title: "What causes a java.lang.ArrayIndexOutOfBoundsException and how do I prevent it?",
         topic: ["coding_java"]
       },
       {
         name: "Tinghao",
-        content: "I love bees they are so cool",
-        title: "Topic_3",
+        content: "Lorem ipsum dolor sit amet3",
+        title: "What is a raw type and why shouldn't we use it?",
         topic: ["coding_java"]
       },
       {
         name: "DeSheng",
         content: "Java is awesome and easy everyone should be an expert in it",
-        title: "Topic_4",
+        title: "How to parse JSON in Java",
         topic: ["coding_java"]
       }
     ];
