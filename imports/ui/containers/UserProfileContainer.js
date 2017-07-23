@@ -18,11 +18,11 @@ export default createContainer(((props) => {
   Meteor.call('user.updateRatings',username);
 
   const user = Meteor.users.findOne({username});
-    return {
+
+  return {
       ...props,
       username,
       user,
-      ratings: userRatings
     }
   })
 , UserProfile);

@@ -77,12 +77,10 @@ Meteor.methods({
           }
         })
         sortedRatings = sortedRatings.filter((n) => { return n != undefined });
-        console.log(sortedRatings);
         let sum = 0;
         for (let j of sortedRatings) {
           sum += j.rating;
         }
-        console.log(sum);
         return {topic: finalTopic, score: (Math.round((sum / sortedRatings.length) * 100) / 100)}
       })
 
@@ -93,7 +91,6 @@ Meteor.methods({
         'profile.ratings': finalRatings
         }
       })
-      console.log('updated users');
     }
   }
 })

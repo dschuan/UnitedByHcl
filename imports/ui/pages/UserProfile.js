@@ -16,10 +16,17 @@ export default class UserProfile extends Component{
     console.log(ratings);
 
   }
+
+  renderDefault(){
+    if(this.props.user.profile.ratings === 0){
+      return <Well> User has not posted any answers yet </Well>
+    }
+  }
   render(){
     console.log(this.props)
     return(
       <Grid>
+        {this.renderDefault()}
         {this.renderUserInfo()}
       </Grid>
     )

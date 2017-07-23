@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
 import { WebApp } from 'meteor/webapp';
 import express from 'express';
 import bodyParser from 'body-parser';
@@ -13,6 +14,7 @@ import { Posts } from '../imports/api/posts';
 import {Children} from '../imports/api/children';
 import { Comments } from '../imports/api/comments';
 import { Votes } from '../imports/api/votes';
+import { Endorsements } from '../imports/api/endorsements';
 import '../imports/startup/simple-schema-configuration.js';
 
 Meteor.startup(() => {
@@ -111,5 +113,11 @@ Meteor.startup(() => {
       Meteor.call('posts.insert', post.name, post.content, post.title, post.topic);
     })
     console.log('Inserted dummy post data');
+  }
+
+  if(Meteor.users.find({}).count() === 0) {
+    const password='123456789';
+    Meteor.call('adduser', {username: 'john_doe', email: 'john@doe.com', password, profile:{ type:'contributor', ratings:[]}});
+    Meteor.call('adduser',{username:'supercontributor', email: 'super@contributor.com', password, profile:{type:'supercontributor', ratings:[]}});
   }
 });
