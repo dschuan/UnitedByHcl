@@ -115,7 +115,7 @@ class QuestionPost extends Component {
                     <Col md={3} className="no-left-pad">
                         <span className="details-small">
                            edited {this.renderTimePosted()} ago by {' '}
-                           <Button bsStyle="link" className="inline-link">{this.props.post.user}</Button>
+                           <Link to={('/users/' + this.props.post.user)}><Button bsStyle="link" className="inline-link">{this.props.post.user}</Button></Link>
                         </span>
                     </Col>
                 </Row>

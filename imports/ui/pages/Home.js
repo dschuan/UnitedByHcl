@@ -14,6 +14,7 @@ import NotFound from '../NotFound';
 import Dashboard from '../Dashboard';
 import PostPage from '../containers/PostPageContainer';
 import Login from '../Login';
+import UserProfile from '../containers/UserProfileContainer';
 
 const Home = homeProps => (
   <Router>
@@ -29,6 +30,7 @@ const Home = homeProps => (
           <Authenticated exact name="home" path="/" component={Dashboard} {...homeProps} />
           <Authenticated path="/topics" component={TopicsMain} {...homeProps} />
           <Authenticated exact path="/posts/:_pid" component={PostPage} {...homeProps }/>
+          <Authenticated exact path="/users/:_uid" component={UserProfile} {...homeProps }/>
           <Public path="/signup" component={Signup} {...homeProps} />
           <Route path="/login" component={Login} {...homeProps} />
           <Route component={NotFound} />
