@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import shortid from 'shortid';
 import SimpleSchema from 'simpl-schema';
+import { Comments } from './comments';
 
 export const Children = new Mongo.Collection('children');
 if (Meteor.isServer) {
@@ -38,6 +39,13 @@ Meteor.methods({
     })
   },
   'children.delete'(_id) {
-    Children.remove(_id)
+    Children.remove(_id);
+    commments = Comments.find({childId: _id}).fetch();
+    if(!!comments)
+    {
+      comments.map((comment) => {
+        Comments.remove(comment._id)
+      })
+    }
   }
 });

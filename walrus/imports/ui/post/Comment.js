@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { createContainer } from 'meteor/react-meteor-data';
 import { Button, MenuItem, Grid, Row, Col } from 'react-bootstrap';
 
-export default class Comment extends Component{
+class Comment extends Component{
   constructor(props) {
     super(props);
     this.state = {
@@ -43,3 +44,10 @@ export default class Comment extends Component{
     )
   }
 }
+
+export default createContainer(((props) => {
+
+  return {
+    ...props
+  }
+}), Comment)

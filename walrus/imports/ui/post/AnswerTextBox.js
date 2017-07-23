@@ -20,16 +20,17 @@ export default class AnswerTextBox extends Component {
         // show error if err, show complete if complete
         if(answer) {
             Meteor.call('children.insert', answer, name, this.props.postId);
-            this.refs.answer.value = '';
+            this.input.value = '';
             this.setState({
                 showComplete: true
             });
-            setTimeout(() => { this.props.hideTextArea()}, 3000);
+            console.log(' timeout started');
+            setTimeout(() => { this.props.hideTextArea()}, 1000);
         }
     }
 
     render() {
-        //console.log('Answer text box',this.props.postId);
+        console.log('Answer text box state',this.state);
         return (
             <div>
                 {this.state.showComplete ? <h5> Your answer has been submitted </h5> :

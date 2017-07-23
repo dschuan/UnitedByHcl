@@ -20,7 +20,7 @@ export default class AnswerPostArea extends Component {
                 {this.state.showTextBox ?
                     <AnswerTextBox hideTextArea={this.handleButtonClick.bind(this)} postId={this.props.postId}/>
                     :
-                    <Button bsStyle="primary" bsSize="large" onClick={this.handleButtonClick.bind(this)}>
+                    <Button bsStyle="primary" bsSize="large" block onClick={this.handleButtonClick.bind(this)}>
                         Answer this question
                     </Button>}
             </div>

@@ -158,7 +158,7 @@ export default class PostPage extends Component {
                 </PageHeader>
                 {this.renderDeleteWarn()}
                 {this.renderPostContent()}
-                <QuestionPost post={this.props.posts} hasAnswer={this.props.childExists} hasPost={this.props.postExists}/>
+                <QuestionPost post={this.props.posts} thisUser={this.props.user} hasAnswer={this.props.childExists} hasPost={this.props.postExists}/>
                 {this.renderAnswers()}
                 <Button bsSize='small' bsStyle='link' onClick={this.toggleSuggestions.bind(this)}> Switch off Suggestions </Button>
                 <div>

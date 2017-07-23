@@ -49,17 +49,21 @@ Meteor.methods({
     Posts.remove(_id);
     //remove children
     children=Children.find({postId: _id}).fetch();
-    children.map((child) => {
-      childId = child._id;
-      comments=Comments.find({childId}).fetch();
-      comments.map((comment) =>{
-        //remove comments
-        commentId = comment._id;
-        Comments.remove(commentId);
+    if(!!children) {
+        children.map((child) => {
+          childId = child._id;
+          comments=Comments.find({childId}).fetch();
+          if(!!comments){
+            comments.map((comment) =>{
+              //remove comments
+              commentId = comment._id;
+              Comments.remove(commentId);
+            })
+          }
+          //remove child
+          Children.remove(childId);
       })
-      //remove child
-      Children.remove(childId);
-    })
+    }
     //remove votes
     Votes.remove({parentId: _id});
 

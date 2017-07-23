@@ -25,7 +25,7 @@ class QuestionPost extends Component {
       const parentId = this.props.post._id;
       //TO-DO: Replace with
       //const user = Meteor.user().username;
-      const user = this.props.post.user;
+      const user = this.props.thisUser.username;
       if(this.props.vote === 0){
         Meteor.call('votes.insert', parentId, user, true);
       } else if(this.props.vote > 0){
@@ -39,7 +39,7 @@ class QuestionPost extends Component {
       console.log("downvote");
       const parentId = this.props.post._id;
       //const user = Meteor.user().username;
-      const user = this.props.post.user;
+      const user = this.props.thisUser.username;
       if(this.props.vote === 0){
         Meteor.call('votes.insert', parentId, user, false);
       } else if(this.props.vote > 0){
@@ -52,13 +52,13 @@ class QuestionPost extends Component {
     renderCategory() {
         // TODO: render category either based on _id or category name
         //console.log('QuestionPost', this.state);
-        if(this.state.hasPost) {
+        if(this.props.hasPost) {
             return this.props.post.topic.map((topic) => {
                 const label = topic.replace(/_/g, ' ');
                 const url = '/topics/' + topic;
-                return( <Button bsStyle='info' bsSize='xsmall' key={topic}>
-                        <Link to={url} key={topic} >{label}</Link>
-                        </Button>);
+                return( <Link to={url} key={topic} ><Button bsStyle='info' bsSize='xsmall' key={topic}>
+                        {label}
+                        </Button></Link>);
             })
         }
     }
@@ -96,7 +96,7 @@ class QuestionPost extends Component {
         return (
             <Grid className="post-right">
                 <Row className="show-grid">
-                    <Col md={9}>
+                    <Col md={6}>
                         <div className="question-content">
                           <ButtonToolbar>
                             {this.renderCategory()}
@@ -109,12 +109,9 @@ class QuestionPost extends Component {
                             </span>
                         </div>
                     </Col>
-                    <Col md={6}>
-                    <ButtonGroup>
-                      <Button bsStyle='success' bsSize='small' onClick={this.upvote.bind(this)}> Upvote </Button>
-                      <Button bsStyle='danger' bsSize='small' onClick={this.downvote.bind(this)}> Downvote </Button>
-                    </ButtonGroup>
-                    </Col>
+
+
+
                     <Col md={3} className="no-left-pad">
                         <span className="details-small">
                            edited {this.renderTimePosted()} ago by {' '}
@@ -123,9 +120,20 @@ class QuestionPost extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    {this.renderQuestionContent()}
-                    <hr />
+                        <Button bsStyle='success' bsSize='small' onClick={this.upvote.bind(this)}> Upvote </Button><span>    </span>
+                        <Button bsStyle='danger' bsSize='small' onClick={this.downvote.bind(this)}> Downvote </Button>
+
                 </Row>
+                <Row><br /></Row>
+                <Row>
+                  <Col xs={6} md={4} />
+                    <Col xs={6} md={4}>
+                    {this.renderQuestionContent()}
+                    </Col>
+                  <Col xs={6} md={4} />
+
+                </Row>
+                <hr />
             </Grid>
         );
     }
@@ -134,7 +142,7 @@ class QuestionPost extends Component {
 export default createContainer((props) => {
   //TO-DO: when implement accounts, use below:
   //const user = Meteor.user().username;
-  const user = props.post.user;
+  const user = props.thisUser.username;
   console.log(user);
   const id = props.post._id;
   console.log(id);
