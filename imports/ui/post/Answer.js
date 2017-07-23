@@ -26,6 +26,7 @@ export default class Answer extends Component {
       } else {
         console.log('upvote failed');
       }
+      Meteor.call('user.updateRatings',this.props.answer.username);
     }
 
     downvote(){
@@ -41,6 +42,8 @@ export default class Answer extends Component {
       } else {
         console.log('upvote failed');
       }
+      console.log(this.props.answer.username);
+      Meteor.call('user.updateRatings',this.props.answer.username);
     }
     renderCommentList() {
       if (this.props.commentExists) {
